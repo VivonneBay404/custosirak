@@ -1,2 +1,0 @@
-# custosirak
-customizable dosirak
