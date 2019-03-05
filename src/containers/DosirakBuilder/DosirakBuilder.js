@@ -5,7 +5,8 @@ class DosirakBuilder extends Component {
     render(){
         return (
             <div className={classes.DosirakBuilder}>
-                <h1>DosirakBuilder</h1>
+                <h1>DosirakBuilder Display</h1>
+                <h1>Controller</h1>
             </div>
            
         )
