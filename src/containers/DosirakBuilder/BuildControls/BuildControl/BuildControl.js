@@ -3,23 +3,16 @@ import classes from './BuildControl.css'
 
 const BuildControl =(props) => {
     console.log(props)
-    const updatedItems = props.items.map((item)=> {
+    const btns =props.btnArr.map((e)=>{
         return (
-            <button key={item.section}>{item}</button>
-        )
-    })
-    const updatedPrice = props.prices.map((price)=> {
-        return (
-            <div className={classes.Price} >
-            {price}
-            </div>
+            <button key={e.name}>{e.name} {e.price}</button>
         )
     })
     return (
         <div>
             <h3>{props.section}</h3>
-            <div className={classes.Button}>{updatedItems}</div>
-            <div className={classes.Price}>{updatedPrice}</div>
+            <div className={classes.Button}>{btns}</div>
+        
             
         </div>
     )
