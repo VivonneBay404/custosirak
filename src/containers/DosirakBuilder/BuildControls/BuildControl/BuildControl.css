@@ -1,0 +1,8 @@
+.Price {
+    display: flex;
+    margin: 5px
+}
+
+.Button {
+    display: inline-block
+}
