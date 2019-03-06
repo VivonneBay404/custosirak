@@ -5,12 +5,12 @@ const BuildControl =(props) => {
     console.log(props)
     const updatedItems = props.items.map((item)=> {
         return (
-            <button>{item}</button>
+            <button key={item.section}>{item}</button>
         )
     })
     const updatedPrice = props.prices.map((price)=> {
         return (
-            <div className={classes.Price}>
+            <div className={classes.Price} >
             {price}
             </div>
         )

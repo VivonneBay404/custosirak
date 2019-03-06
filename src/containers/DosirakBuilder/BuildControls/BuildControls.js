@@ -48,7 +48,7 @@ const BuildControls = (props) => {
        let itemArray = [];
        for(let key in items){
             itemArray.push({
-               section : key,
+               key : key,
                item : Object.keys(items[key]),
                price :Object.values(items[key]).map((i)=>{
                     return i.price
@@ -59,7 +59,7 @@ const BuildControls = (props) => {
        console.log(itemArray)
        const buildControls = itemArray.map((i)=>{
             return(
-                <BuildControl section = {i.section} items ={i.item} prices ={i.price}/>
+                <BuildControl key = {i.key} section ={i.key} items ={i.item} prices ={i.price}/>
             )
        })
     
