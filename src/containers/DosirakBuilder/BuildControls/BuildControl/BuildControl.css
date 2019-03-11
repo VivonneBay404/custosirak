@@ -6,3 +6,10 @@
 .Button {
     display: inline-block
 }
+
+.Button:active button,
+.Button:focus button,
+.Button:target button,
+.Button:hover button{
+    background-color: rgb(224, 107, 107);
+}
