@@ -1,15 +1,21 @@
+.BuildControl {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+
 .Price {
     display: flex;
     margin: 5px
 }
 
-.Button {
-    display: inline-block
+.BuildControl button {
+    display: inline-block;
+    margin: 5px;
+    background-color: bisque
 }
 
-.Button:active button,
-.Button:focus button,
-.Button:target button,
-.Button:hover button{
-    background-color: rgb(224, 107, 107);
+.BuildControl .Selected {
+    background-color: salmon
 }

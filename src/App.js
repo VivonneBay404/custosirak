@@ -10,12 +10,12 @@ class App extends Component {
   render() {
     return (
     <Layout>
-    <Switch>
-      <Route path='/dosirakbuilder' component={DosirakBuilder}/>
-      <Route path='/orders' component={Order}/>
-      <Route path='/login' component={Login}/>
-      <Route path='/' component={DosirakBuilder}/>
-    </Switch>
+      <Switch>
+        <Route path='/dosirakbuilder' component={DosirakBuilder}/>
+        <Route path='/orders' component={Order}/>
+        <Route path='/login' component={Login}/>
+        <Route path='/' component={DosirakBuilder}/>
+      </Switch>
     </Layout>
     )
   }

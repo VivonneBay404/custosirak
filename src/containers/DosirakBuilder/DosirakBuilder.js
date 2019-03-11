@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './DosirakBuilder.css';
-import BuildControls from './BuildControls/BuildControls'
+import BuildControls from './BuildControls/BuildControls';
+import Dosirak from '../../components/Dosirak/Dosirak'
 
 class DosirakBuilder extends Component {
 
@@ -60,7 +61,7 @@ class DosirakBuilder extends Component {
     render() {
         return (
             <div className={classes.DosirakBuilder}>
-                <h1>DosirakBuilder Display</h1>
+                <Dosirak/>
                 <BuildControls clicked={this.menuClickHandler} menu={{ ...this.state.menu }} />
                 <p>총 가격 : {this.state.totalPrice}</p>
             </div>
