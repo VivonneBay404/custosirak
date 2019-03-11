@@ -15,13 +15,15 @@ const BuildControl =(props) => {
     console.log('Buildcontrol.itemArr:' +itemArr)
     const btns =itemArr.map((e)=> {
         return (
-            <button onClick ={()=>props.clicked(e.item,props.section)} key={e.item}>{e.item} | {e.price}</button>
+            <div className={classes.Button}>
+                <button onClick ={()=>props.clicked(e.item,props.section)} key={e.item}>{e.item} | {e.price}</button>
+            </div>
         )
     })
     return (
         <div>
             <h3>{props.section}</h3>
-            <div className={classes.Button}>{btns}</div>
+           {btns}
         </div>
     )
 }
