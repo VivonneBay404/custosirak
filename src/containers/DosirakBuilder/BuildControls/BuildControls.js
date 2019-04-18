@@ -1,5 +1,6 @@
 import React from 'react';
-import BuildControl from '../BuildControls/BuildControl/BuildControl'
+import BuildControl from '../BuildControls/BuildControl/BuildControl';
+import classes from './BuildControls.css'
 
 const BuildControls = (props) => {
     console.log('BuildControls.props:' + props)
@@ -20,9 +21,9 @@ const BuildControls = (props) => {
     })
 
     return (
-        <>
+        <div className={classes.BuildControls}>
             {buildcontrol}
-        </>
+        </div>
     )
 }
 

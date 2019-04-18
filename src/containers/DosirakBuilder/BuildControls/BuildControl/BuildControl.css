@@ -1,21 +1,22 @@
 .BuildControl {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 5px 0;
-}
-
-.Price {
-    display: flex;
-    margin: 5px
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    grid-gap: 0.5rem;
 }
 
 .BuildControl button {
-    display: inline-block;
-    margin: 5px;
-    background-color: bisque
+    background-color: bisque;
+    padding: 0;
+    border: 0 solid black;
+    cursor: pointer;
+    width: 100%;
+    height: 100%; 
 }
 
 .BuildControl .Selected {
     background-color: salmon
+}
+.Section {
+    font-size: 1.5rem;
+    margin: auto;
 }

@@ -1,0 +1,54 @@
+.Dosirak {
+    width: 20rem;
+    margin: auto;
+    height: 15rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    /* overflow: auto; */
+    background-color: rgb(61, 61, 61);
+    border-radius: 20px;
+    display: grid;
+    grid-template-areas: "banchan1 banchan1 banchan1 banchan1 banchan2 banchan2 banchan2 banchan3 banchan3 banchan3"
+                         "banchan1 banchan1 banchan1 banchan1 banchan2 banchan2 banchan2 banchan3 banchan3 banchan3"
+                         "rice rice rice rice rice soup soup soup soup soup"
+                         "rice rice rice rice rice soup soup soup soup soup"
+                         "rice rice rice rice rice soup soup soup soup soup";
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(10, 1fr);
+    min-width: 0;
+    min-height: 0;
+}
+.Banchan1 {
+    grid-area: banchan1;
+    background-color: rgb(48, 48, 48);
+    border-radius: 20px;
+    margin: 0.5rem 0 0 0.5rem;
+    
+}
+.Banchan2 {
+    grid-area: banchan2;
+    background-color: rgb(48, 48, 48);
+    border-radius: 20px;
+    margin: 0.5rem 0 0 0.5rem;
+}
+.Banchan3 {
+    grid-area: banchan3;
+    background-color: rgb(48, 48, 48);
+    border-radius: 20px;
+    margin: 0.5rem 0.5rem 0 0.5rem;
+}
+.Rice {
+    grid-area: rice;
+    background-color: rgb(48, 48, 48);
+    border-radius: 20px;
+    margin: 0.5rem 0 0.5rem 0.5rem;
+}
+.Soup {
+    grid-area: soup;
+    background-color: rgb(48, 48, 48);
+    border-radius: 20px;
+    margin: 0.5rem;
+}
+
+

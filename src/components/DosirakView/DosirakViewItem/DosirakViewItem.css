@@ -1,0 +1,9 @@
+.DosirakViewItem {
+    min-width: 0;
+    overflow: hidden;
+}
+img {
+    height: 90%;
+    width: 90%;
+    object-fit: contain;
+}

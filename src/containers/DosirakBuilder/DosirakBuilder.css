@@ -1,5 +1,6 @@
 .DosirakBuilder {
-    width: 100%;
+    display: flex;
     border: 1px solid #ccc;
-    
+    flex-direction: column;
+    justify-content: space-between;
 }

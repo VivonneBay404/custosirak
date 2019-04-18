@@ -22,14 +22,14 @@ const BuildControl =(props) => {
             btnClass = classes.BuildControl
         }
         return (
-            <div className={classes.BuildControl}  key={e.item}>
+            <div key={e.item}>
                 <button className={btnClass} onClick ={()=>props.clicked(e.item,props.section)}>{e.item} | {e.price}</button>
             </div>
         )
     })
     return (
-        <div>
-            <h3>{props.section}</h3>
+        <div  className={classes.BuildControl} >
+            <div className={classes.Section}>{props.section}</div>
            {btns}
         </div>
     )
