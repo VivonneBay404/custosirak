@@ -1,0 +1,21 @@
+.OrderSummary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.HeadLine {
+    margin-bottom: 1rem;
+}
+.SelectedItems {
+    margin: 0.5rem;
+}
+
+.Price {
+    margin: 1rem;
+    font-weight: bold;
+}
+.BtnContainer {
+
+}

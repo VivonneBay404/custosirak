@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import classes from './DosirakBuilder.css';
 import BuildControls from './BuildControls/BuildControls';
-import DosirakView from '../../components/DosirakView/DosirakView'
+import DosirakView from '../../components/DosirakView/DosirakView';
+import Button from '../../UI/Button/Button';
+import Modal from '../../UI/Modal/Modal'
+import OrderSummary from '../../components/OrderSummary/OrderSummary'
 
 class DosirakBuilder extends Component {
 
@@ -48,7 +51,9 @@ class DosirakBuilder extends Component {
                 }
             }
         },
-        totalPrice: 0
+        totalPrice: 0,
+        showOrderSummury: false,
+        canOrder: false
     }
 
 
@@ -76,20 +81,12 @@ class DosirakBuilder extends Component {
 
         //총 가격 로직
         let totalPrice = 0
-        // for(const updatedSection in updatedMenu){
-        //     for(const item in updatedMenu[updatedSection]){
-        //         if(updatedMenu[updatedSection][item].selected === true){
-        //             totalPrice = totalPrice + updatedMenu[updatedSection][item].price
-        //         }
-        //     }
-        // }
 
         this.selectedItemFinder().forEach(e => {
             totalPrice += e.price
         });
 
         this.setState({ menu: updatedMenu, totalPrice: totalPrice })
-        console.log(this.state)
     }
 
 
@@ -102,7 +99,7 @@ class DosirakBuilder extends Component {
         for (const updatedSection in updatedMenu) {
             for (const item in updatedMenu[updatedSection]) {
                 if (updatedMenu[updatedSection][item].selected === true) {
-                    selectedItems.push({...updatedMenu[updatedSection][item],name: item,section:updatedSection})
+                    selectedItems.push({ ...updatedMenu[updatedSection][item], name: item, section: updatedSection })
                 }
             }
         }
@@ -110,18 +107,47 @@ class DosirakBuilder extends Component {
         return selectedItems
     }
 
+
+    //주문하기 버튼을 누르면 주문내역이 보이게하고 안보이게하는 메소드
+    orderButtonHandler = () => {
+        this.setState({ showOrderSummury: true })
+    }
+    orderCancelHandler = () => {
+        this.setState({ showOrderSummury: false })
+    }
+
+    orderConfirmHandler = () => {
+        alert('주문완료!')
+    }
+
     render() {
+        //선택된 아이템의 array
         let items = [];
-         this.selectedItemFinder().map(e => {
+        this.selectedItemFinder().map(e => {
             return items.push(e)
         })
-        
+
+        //1이상 아이템을 선택하면 주문버튼 활성화
+        let canOrder ={...this.state.canOrder};
+        if(items.length > 0){
+            canOrder = !canOrder
+        }
+
         return (
-            <div className={classes.DosirakBuilder}>
-                <DosirakView selectedItems ={items}/>
-                <BuildControls clicked={this.menuClickHandler} menu={{ ...this.state.menu }} />
-                <p>총 가격 : {this.state.totalPrice}</p>
-            </div>
+            <>
+                <Modal show={this.state.showOrderSummury} canceled={this.orderCancelHandler}>
+                    <OrderSummary selectedItems={items}  totalPrice={this.state.totalPrice} canceled={this.orderCancelHandler} confirmed ={this.orderConfirmHandler}></OrderSummary>
+                </Modal>
+                <div className={classes.DosirakBuilder}>
+                    <DosirakView selectedItems={items}/>
+                    <BuildControls clicked={this.menuClickHandler} menu={{ ...this.state.menu }} />
+                    <div className={classes.PriceAndOrderFlexContainer}>
+                        <div className={classes.TotalPrice}>총 가격 : {this.state.totalPrice}</div>
+                        <Button btnType="Enter" orderable = {canOrder} className={classes.OrderButton} clicked={this.orderButtonHandler} >주문하기</Button>
+                    </div>
+
+                </div>
+            </>
 
         )
     }

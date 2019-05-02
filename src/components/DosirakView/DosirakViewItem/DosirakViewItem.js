@@ -1,10 +1,16 @@
 import React from 'react';
 import classes from './DosirakViewItem.css'
 import octopus from '../../../assets/images/foodItems/fried-octopus.png'
+import kimchi from '../../../assets/images/foodItems/kimchi.png'
+import whiteRice from '../../../assets/images/foodItems/white-rice.jpg'
+
 
 const dosirakItems = (props) => {
     const section = props.section;
+    const itemName = props.name;
     let sectionForGrid = '';
+    let itemForGrid = '';
+
     //section에 따라 grid-area value를 스위치
     switch (section) {
         case '반찬1':
@@ -25,10 +31,22 @@ const dosirakItems = (props) => {
         default:
             break;
     }
+    switch (itemName) {
+        case '오징어볶음':
+            itemForGrid = octopus
+            break;
+        case '김치':
+            itemForGrid = kimchi
+            break;
+        case '백미밥':
+            itemForGrid = whiteRice
+            break;
+        default:
+            break;
+    }
     return (
         <div className={classes.DosirakViewItem} style={{ gridArea: sectionForGrid }}>
-            {props.children}
-            <img src={octopus} alt={props.children} />
+            <img src={itemForGrid} alt={props.children} />
         </div>
     )
 }

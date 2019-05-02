@@ -1,0 +1,10 @@
+.Logo {
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: rgb(48, 48, 48);
+    padding: 0.5rem;
+    color: #f0932b;
+    border-radius: 1rem;
+    margin-left: 2.5rem;
+    text-decoration: none;
+}

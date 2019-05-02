@@ -1,10 +1,15 @@
-.Grid {
+/* .Grid {
     display: grid;
     grid-template-areas: 'header' 
                          'main'
                          'footer';
-}
+    height: 100%;
+} */
 
 .Content {
-    grid-area: main;
+    /* grid-area: main; */
+    height: 100%;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
 }

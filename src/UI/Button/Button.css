@@ -1,0 +1,40 @@
+
+.Button {
+    background-color: #ffdba0;
+    border: 0 solid black;
+    cursor: pointer;
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    outline: none;
+}
+
+.Button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.Button:not(:disabled) {
+    animation: enable 0.2s linear;
+}
+
+@keyframes enable {
+    0% {
+        transform: scale(1);
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.Enter {
+    background-color: #badc58
+}
+
+.Cancel {
+    background-color: #ff7979
+}

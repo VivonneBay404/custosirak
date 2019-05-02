@@ -1,3 +1,13 @@
 .NavItems {
-  display: flex
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    
+}
+
+@media (min-width: 500px) {
+    .NavItems {
+        display: flex;
+        flex-direction: row;
+    }
 }
