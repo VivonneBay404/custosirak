@@ -5,6 +5,10 @@ import DosirakView from '../../components/DosirakView/DosirakView';
 import Button from '../../UI/Button/Button';
 import Modal from '../../UI/Modal/Modal'
 import OrderSummary from '../../components/OrderSummary/OrderSummary'
+import axios from '../../axios-orders'
+import Spinner from '../../UI/Spinner/Spinner'
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
+import { Redirect } from 'react-router-dom'
 
 class DosirakBuilder extends Component {
 
@@ -53,7 +57,9 @@ class DosirakBuilder extends Component {
         },
         totalPrice: 0,
         showOrderSummury: false,
-        canOrder: false
+        canOrder: false,
+        loading: false,
+        submitted: false
     }
 
 
@@ -116,10 +122,39 @@ class DosirakBuilder extends Component {
         this.setState({ showOrderSummury: false })
     }
 
+    //ordersummary의 주문하기 버튼을 누르면 firebase의 데이터베이스로 json 전송
     orderConfirmHandler = () => {
-        alert('주문완료!')
+        this.setState({ loading: true })
+        const order = {
+            items: this.selectedItemFinder().map(e => {
+                return (e.name)
+            }),
+            price: this.state.totalPrice,
+            customer: {
+                name: 'jihong park',
+                address: {
+                    street: 'cheunyongdong',
+                    country: 'South Korea'
+                },
+                email: 'test@gamil.com'
+
+            }
+        }
+        axios.post('.json', order)
+            .then(respone => {
+                this.setState({ loading: false, showOrderSummury: false, submitted: true });
+                //orders로 리다이렉팅
+                //this.props.history.push('/orders')
+            }
+            )
+            .catch(error => {
+                this.setState({ loading: false, showOrderSummury: false })
+            })
     }
 
+    componentDidMount() {
+        console.log(this.props)
+    }
     render() {
         //선택된 아이템의 array
         let items = [];
@@ -128,22 +163,42 @@ class DosirakBuilder extends Component {
         })
 
         //1이상 아이템을 선택하면 주문버튼 활성화
-        let canOrder ={...this.state.canOrder};
-        if(items.length > 0){
+        let canOrder = { ...this.state.canOrder };
+        if (items.length > 0) {
             canOrder = !canOrder
+        }
+
+        //orderSummary가 로딩중일때 spinner를 보여줌
+        let orderSummary = null;
+        if (this.state.loading) {
+            orderSummary = <Spinner />
+        } else {
+            orderSummary = <OrderSummary
+                loading={this.state.loading}
+                selectedItems={items}
+                totalPrice={this.state.totalPrice}
+                canceled={this.orderCancelHandler}
+                confirmed={this.orderConfirmHandler}></OrderSummary>
+        }
+
+        //주문이 완료되면 /orders로 리다이렉트
+        let redirect = null;
+        if (this.state.submitted) {
+            redirect = <Redirect to='/orders' />
         }
 
         return (
             <>
-                <Modal show={this.state.showOrderSummury} canceled={this.orderCancelHandler}>
-                    <OrderSummary selectedItems={items}  totalPrice={this.state.totalPrice} canceled={this.orderCancelHandler} confirmed ={this.orderConfirmHandler}></OrderSummary>
+                {redirect}
+                <Modal show={this.state.showOrderSummury} canceled={this.orderCancelHandler} loading={this.state.loading}>
+                    {orderSummary}
                 </Modal>
                 <div className={classes.DosirakBuilder}>
-                    <DosirakView selectedItems={items}/>
+                    <DosirakView selectedItems={items} />
                     <BuildControls clicked={this.menuClickHandler} menu={{ ...this.state.menu }} />
                     <div className={classes.PriceAndOrderFlexContainer}>
                         <div className={classes.TotalPrice}>총 가격 : {this.state.totalPrice}</div>
-                        <Button btnType="Enter" orderable = {canOrder} className={classes.OrderButton} clicked={this.orderButtonHandler} >주문하기</Button>
+                        <Button btnType="Enter" orderable={canOrder} className={classes.OrderButton} clicked={this.orderButtonHandler} >주문하기</Button>
                     </div>
 
                 </div>
@@ -153,4 +208,4 @@ class DosirakBuilder extends Component {
     }
 
 }
-export default DosirakBuilder;
+export default withErrorHandler(DosirakBuilder, axios);

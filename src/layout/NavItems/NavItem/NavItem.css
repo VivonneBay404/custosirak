@@ -11,9 +11,19 @@
     color: black;
     
 }
+.active {
+    color: #f0932b
+}
 
 @media(min-width: 500px) {
     .NavItem {
         margin: 0px 1rem;
     }
+    .NavItem a:hover,
+    .NavItem a:active,
+    .NavItem a.active{
+        border-bottom: 2px solid black;
+        padding-bottom: 3px;
+    }
+    
 }

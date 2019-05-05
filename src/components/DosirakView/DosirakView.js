@@ -25,7 +25,7 @@ const dosirak = (props) => {
             {
                 items.map(e => {
                     return (
-                        <DosirakViewItem section={e.section} name={e.name}>{e.name}</DosirakViewItem>
+                        <DosirakViewItem section={e.section} name={e.name} key={e.name}>{e.name}</DosirakViewItem>
                     )
                 })
             }

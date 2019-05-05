@@ -1,12 +1,17 @@
 .Modal {
     /* width: 80%;
     height: 60%; */
+    /* min-width: 50%;
+    min-height: 50%; */
     background-color: #fff;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.432);
     position: fixed;
     z-index: 100;
-    right: 10%;
-    top: 20%;
+    /* right: 10%;
+    top: 20%; */
     padding: 2rem;
     transition: all 0.2s ease-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
