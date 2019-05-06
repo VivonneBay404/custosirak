@@ -5,7 +5,7 @@ import DosirakView from '../../components/DosirakView/DosirakView';
 import Button from '../../UI/Button/Button';
 import Modal from '../../UI/Modal/Modal'
 import OrderSummary from '../../components/OrderSummary/OrderSummary'
-import axios from '../../axios-orders'
+import axios from '../../axios-instance/axios-orders'
 import Spinner from '../../UI/Spinner/Spinner'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import { Redirect } from 'react-router-dom'

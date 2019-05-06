@@ -1,4 +1,10 @@
 .Login {
     padding-top: 5rem;
     font-size: 3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.Login button:not(:disabled) {
+    animation: none
 }

@@ -1,7 +1,19 @@
 .Orders {
-    padding-top: 5rem;
     font-size: 3rem;
     width: 100%;
     height: 100%;
-    margin-top: 3rem;
+    padding-top:8rem;
+}
+
+.Title {
+    margin: 1rem;
+    border-bottom: 1px solid grey
+}
+
+
+.Spinner {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 70%;
 }
