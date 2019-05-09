@@ -7,7 +7,7 @@ class Modal extends Component {
     //새로 업데이트된 show가 전에 업데이트된 show와 다를때만 업데이트됨
     //props.loading이 true여도 업데이트됨
     shouldComponentUpdate(nextProps, nextState){
-        return nextProps.show !== this.props.show || nextProps.loading === true
+        return nextProps.show !== this.props.show || nextProps.loading === true || nextProps.showDiffAddr === true
     }
     componentDidUpdate(){
         console.log('modal updated')

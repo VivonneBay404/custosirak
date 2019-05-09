@@ -1,6 +1,15 @@
 .Input {
   padding: 1rem;
-  font-size: 1rem;
-  margin: 1rem;
+  font-size: 1.3rem;
+  margin: 0.5rem;
   border: 1px solid grey;
+}
+
+.Input:focus,
+.Input:active{
+    border: 1px solid #f0932b;
+}
+
+.Invalid {
+  color: #ff7979
 }

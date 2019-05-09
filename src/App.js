@@ -10,6 +10,7 @@ import Spinner from '../src/UI/Spinner/Spinner'
 
 const Order = React.lazy(() => import('../src/containers/Orders/Orders'));
 const Login = React.lazy(() => import('../src/containers/Auth/Login/Login'))
+const SignUp = React.lazy(() => import('../src/containers/Auth/SignUp/SignUp'))
 
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
           <Route path='/dosirakbuilder' component={DosirakBuilder} />
           <Route path='/orders' render={() =><Suspense fallback={<Spinner/>}><Order/></Suspense>} />
           <Route path='/login' render={() =><Suspense fallback={<Spinner/>}><Login/></Suspense>} />
+          <Route path='/signup' render={() =><Suspense fallback={<Spinner/>}><SignUp/></Suspense>} />
           {/* 만약 없는 url을 치면 redirect to dosirakbuilder */}
           <Route path='/' component={DosirakBuilder} />
         </Switch>

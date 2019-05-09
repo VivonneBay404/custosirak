@@ -9,6 +9,7 @@ import axios from '../../axios-instance/axios-orders'
 import Spinner from '../../UI/Spinner/Spinner'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import { Redirect } from 'react-router-dom'
+import DiffAddrForm from '../../components/OrderSummary/DiffAddrForm/DiffAddrForm';
 
 class DosirakBuilder extends Component {
 
@@ -59,7 +60,8 @@ class DosirakBuilder extends Component {
         showOrderSummury: false,
         canOrder: false,
         loading: false,
-        submitted: false
+        submitted: false,
+        diffAddr: false
     }
 
 
@@ -119,7 +121,7 @@ class DosirakBuilder extends Component {
         this.setState({ showOrderSummury: true })
     }
     orderCancelHandler = () => {
-        this.setState({ showOrderSummury: false })
+        this.setState({ showOrderSummury: false,diffAddr:false})
     }
 
     //ordersummary의 주문하기 버튼을 누르면 firebase의 데이터베이스로 json 전송
@@ -144,6 +146,7 @@ class DosirakBuilder extends Component {
             .then(respone => {
                 this.setState({ loading: false, showOrderSummury: false, submitted: true });
                 //orders로 리다이렉팅
+                //밑에 <Redirect>로 리다이렉팅함
                 //this.props.history.push('/orders')
             }
             )
@@ -151,9 +154,13 @@ class DosirakBuilder extends Component {
                 this.setState({ loading: false, showOrderSummury: false })
             })
     }
-
+   
     componentDidMount() {
         console.log(this.props)
+    }
+
+    changeToDiff = () => {
+        this.setState({diffAddr: true})
     }
     render() {
         //선택된 아이템의 array
@@ -170,15 +177,24 @@ class DosirakBuilder extends Component {
 
         //orderSummary가 로딩중일때 spinner를 보여줌
         let orderSummary = null;
+        
         if (this.state.loading) {
             orderSummary = <Spinner />
-        } else {
+        }
+        else if(this.state.diffAddr){
+            orderSummary =<DiffAddrForm canceled={this.orderCancelHandler}/>
+            console.log('orderSummary =<DiffAddrForm/>')
+        }
+        else {
             orderSummary = <OrderSummary
                 loading={this.state.loading}
                 selectedItems={items}
                 totalPrice={this.state.totalPrice}
                 canceled={this.orderCancelHandler}
-                confirmed={this.orderConfirmHandler}></OrderSummary>
+                confirmed={this.orderConfirmHandler}
+                changeToDiff={this.changeToDiff}
+                ></OrderSummary>
+                console.log('<OrderSummary>')
         }
 
         //주문이 완료되면 /orders로 리다이렉트
@@ -190,7 +206,7 @@ class DosirakBuilder extends Component {
         return (
             <>
                 {redirect}
-                <Modal show={this.state.showOrderSummury} canceled={this.orderCancelHandler} loading={this.state.loading}>
+                <Modal show={this.state.showOrderSummury} canceled={this.orderCancelHandler} loading={this.state.loading} showDiffAddr={this.state.diffAddr}>
                     {orderSummary}
                 </Modal>
                 <div className={classes.DosirakBuilder}>
@@ -198,7 +214,7 @@ class DosirakBuilder extends Component {
                     <BuildControls clicked={this.menuClickHandler} menu={{ ...this.state.menu }} />
                     <div className={classes.PriceAndOrderFlexContainer}>
                         <div className={classes.TotalPrice}>총 가격 : {this.state.totalPrice}</div>
-                        <Button btnType="Enter" orderable={canOrder} className={classes.OrderButton} clicked={this.orderButtonHandler} >주문하기</Button>
+                        <Button btnType="Enter" disabled={canOrder} className={classes.OrderButton} clicked={this.orderButtonHandler} >주문하기</Button>
                     </div>
 
                 </div>

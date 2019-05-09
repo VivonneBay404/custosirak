@@ -3,7 +3,7 @@ import classes from '../Button/Button.css'
 
 const Button =(props) => (
     <button className={[classes.Button, classes[props.btnType]].join(' ')} 
-    onClick={props.clicked} disabled={props.orderable}>{props.children}</button>
+    onClick={props.clicked} disabled={props.disabled}>{props.children}</button>
 )
     
 export default Button
