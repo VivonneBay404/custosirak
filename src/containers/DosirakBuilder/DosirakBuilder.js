@@ -10,53 +10,13 @@ import Spinner from '../../UI/Spinner/Spinner'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import { Redirect } from 'react-router-dom'
 import DiffAddrForm from '../../components/OrderSummary/DiffAddrForm/DiffAddrForm';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions/actionTypes'
+import * as dosirakBuilderActions from '../../store/actions/index'
 
 class DosirakBuilder extends Component {
 
     state = {
-        menu: {
-            반찬1: {
-                오징어볶음: {
-                    selected: false, price: 1500
-                },
-                불고기: {
-                    selected: false, price: 1800
-                }
-            },
-            반찬2: {
-                오뎅볶음: {
-                    selected: false, price: 800
-                },
-                가지볶음: {
-                    selected: false, price: 900
-                }
-            },
-            반찬3: {
-                볶은김치: {
-                    selected: false, price: 600
-                },
-                김치: {
-                    selected: false, price: 500
-                }
-            },
-            밥: {
-                백미밥: {
-                    selected: false, price: 500
-                },
-                현미밥: {
-                    selected: false, price: 600
-                }
-            },
-            국: {
-                된장국: {
-                    selected: false, price: 800
-                },
-                미역국: {
-                    selected: false, price: 600
-                }
-            }
-        },
-        totalPrice: 0,
         showOrderSummury: false,
         canOrder: false,
         loading: false,
@@ -66,12 +26,16 @@ class DosirakBuilder extends Component {
 
 
     menuClickHandler = (item, section) => {
-        const oldSection = this.state.menu[section];
+        // const oldSection = this.state.menu[section];
+        // connected to store
+        const oldSection = this.props.menu[section]
         const oldItem = oldSection[item];
         const oldItemSelected = oldItem.selected;
 
 
-        const updatedMenu = { ...this.state.menu };
+        // const updatedMenu = { ...this.state.menu };
+        // connected to store
+        const updatedMenu = { ...this.props.menu }
         const updatedSection = updatedMenu[section];
         const updatedItem = updatedSection[item];
         let updatedItemSelected = null;
@@ -94,14 +58,18 @@ class DosirakBuilder extends Component {
             totalPrice += e.price
         });
 
-        this.setState({ menu: updatedMenu, totalPrice: totalPrice })
+        // this.setState({ menu: updatedMenu, totalPrice: totalPrice })
+        //mapDispatchToProps 사용
+        this.props.onMenuClicked(updatedMenu, totalPrice)
     }
 
 
     //selected 프로퍼티가 true면 selectedItems 란 array에 selected된 item을 넣고 return하는 func
     selectedItemFinder = () => {
         //state의 menu를 복사
-        const updatedMenu = { ...this.state.menu };
+        // const updatedMenu = { ...this.state.menu };
+        // connected to store
+        const updatedMenu = { ...this.props.menu }
         let selectedItems = []
         //updatedMenu를 recursive loop로 검색, selected가 true면 push로 array에 넣음
         for (const updatedSection in updatedMenu) {
@@ -121,7 +89,7 @@ class DosirakBuilder extends Component {
         this.setState({ showOrderSummury: true })
     }
     orderCancelHandler = () => {
-        this.setState({ showOrderSummury: false,diffAddr:false})
+        this.setState({ showOrderSummury: false, diffAddr: false })
     }
 
     //ordersummary의 주문하기 버튼을 누르면 firebase의 데이터베이스로 json 전송
@@ -131,16 +99,10 @@ class DosirakBuilder extends Component {
             items: this.selectedItemFinder().map(e => {
                 return (e.name)
             }),
-            price: this.state.totalPrice,
-            customer: {
-                name: 'jihong park',
-                address: {
-                    street: 'cheunyongdong',
-                    country: 'South Korea'
-                },
-                email: 'test@gamil.com'
-
-            }
+            // price: this.state.totalPrice,
+            // connected to store
+            price: this.props.totalPrice
+        
         }
         axios.post('.json', order)
             .then(respone => {
@@ -148,19 +110,20 @@ class DosirakBuilder extends Component {
                 //orders로 리다이렉팅
                 //밑에 <Redirect>로 리다이렉팅함
                 //this.props.history.push('/orders')
+                this.props.onOrderSummitted()
             }
             )
             .catch(error => {
                 this.setState({ loading: false, showOrderSummury: false })
             })
     }
-   
+
     componentDidMount() {
         console.log(this.props)
     }
 
     changeToDiff = () => {
-        this.setState({diffAddr: true})
+        this.setState({ diffAddr: true })
     }
     render() {
         //선택된 아이템의 array
@@ -177,24 +140,26 @@ class DosirakBuilder extends Component {
 
         //orderSummary가 로딩중일때 spinner를 보여줌
         let orderSummary = null;
-        
+
         if (this.state.loading) {
             orderSummary = <Spinner />
         }
-        else if(this.state.diffAddr){
-            orderSummary =<DiffAddrForm canceled={this.orderCancelHandler}/>
+        else if (this.state.diffAddr) {
+            orderSummary = <DiffAddrForm canceled={this.orderCancelHandler} />
             console.log('orderSummary =<DiffAddrForm/>')
         }
         else {
             orderSummary = <OrderSummary
                 loading={this.state.loading}
                 selectedItems={items}
-                totalPrice={this.state.totalPrice}
+                //connected to stroe
+                // totalPrice={this.state.totalPrice}
+
                 canceled={this.orderCancelHandler}
                 confirmed={this.orderConfirmHandler}
                 changeToDiff={this.changeToDiff}
-                ></OrderSummary>
-                console.log('<OrderSummary>')
+            ></OrderSummary>
+            console.log('<OrderSummary>')
         }
 
         //주문이 완료되면 /orders로 리다이렉트
@@ -206,15 +171,30 @@ class DosirakBuilder extends Component {
         return (
             <>
                 {redirect}
-                <Modal show={this.state.showOrderSummury} canceled={this.orderCancelHandler} loading={this.state.loading} showDiffAddr={this.state.diffAddr}>
+                <Modal 
+                show={this.state.showOrderSummury} 
+                canceled={this.orderCancelHandler} 
+                loading={this.state.loading} 
+                showDiffAddr={this.state.diffAddr}>
                     {orderSummary}
                 </Modal>
                 <div className={classes.DosirakBuilder}>
                     <DosirakView selectedItems={items} />
-                    <BuildControls clicked={this.menuClickHandler} menu={{ ...this.state.menu }} />
+                    {/* connected to store */}
+                    <BuildControls clicked={this.menuClickHandler}
+                        // menu={{...this.state.menu}}
+                        menu={{ ...this.props.menu }} />
                     <div className={classes.PriceAndOrderFlexContainer}>
-                        <div className={classes.TotalPrice}>총 가격 : {this.state.totalPrice}</div>
-                        <Button btnType="Enter" disabled={canOrder} className={classes.OrderButton} clicked={this.orderButtonHandler} >주문하기</Button>
+                        <div className={classes.TotalPrice}>총 가격 :
+                        {/* {this.state.totalPrice} */}
+                            {/* connected to store */}
+                            {this.props.totalPrice}
+                        </div>
+                        <Button 
+                        btnType="Enter" 
+                        disabled={canOrder} 
+                        className={classes.OrderButton} 
+                        clicked={this.orderButtonHandler} >주문하기</Button>
                     </div>
 
                 </div>
@@ -223,5 +203,18 @@ class DosirakBuilder extends Component {
         )
     }
 
+
 }
-export default withErrorHandler(DosirakBuilder, axios);
+const mapStateToProps = state => {
+    return {
+        menu: state.dosirakBuilder.menu,
+        totalPrice: state.dosirakBuilder.totalPrice
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        onMenuClicked: (updatedMenu, totalPrice) => dispatch(dosirakBuilderActions.menuClicked(updatedMenu,totalPrice)),
+        onOrderSummitted: () =>  dispatch(dosirakBuilderActions.orderSubmitted()) 
+    }
+}
+export default withErrorHandler(connect(mapStateToProps, mapDispatchToProps)(DosirakBuilder), axios);

@@ -19,7 +19,7 @@ class Order extends Component {
                
                 //내 주문을 update하기위해
                getOrders()
-            //    this.setState({ deleting: false})
+               this.setState({ deleting: false})
             })
     }
 
