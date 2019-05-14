@@ -3,18 +3,21 @@ import classes from './SignUp.css'
 import Input from '../../../UI/Input/Input'
 import Button from '../../../UI/Button/Button'
 import axiosSignup from '../../../axios-instance/axios-signUp'
+import * as actions from '../../../store/actions/index'
+import { connect } from 'react-redux'
+import Backdrop from '../../../UI/Backdrop/Backdrop';
+import Spinner from '../../../UI/Spinner/Spinner';
 
 class SignUp extends Component {
 
     state = {
         signUpForm: {
-            ID: {
+            email: {
                 inputType: 'input',
                 value: '',
                 validation: {
                     required: true,
-                    minLength: 5,
-                    maxLength: 10
+                    isEmail: true
                 },
                 valid: false,
                 touched: false
@@ -41,15 +44,7 @@ class SignUp extends Component {
                 valid: false,
                 touched: false
             },
-            email: {
-                inputType: 'input',
-                value: '',
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
-            },
+
             집주소: {
                 inputType: 'input',
                 value: '',
@@ -67,13 +62,15 @@ class SignUp extends Component {
     }
 
     signUpHandler = () => {
-        let formData = {}
-        const updatedSignUpForm = { ...this.state.signUpForm }
-        for (const formIdentifier in updatedSignUpForm) {
-            //forData에 formIdentifier를 키로 inputData를 value로 하는 오브젝트넣기
-            formData[formIdentifier] = updatedSignUpForm[formIdentifier].value
-        }
-        axiosSignup.post('.json', formData)
+        // event.preventDefault();
+        // let formData = {}
+        // const updatedSignUpForm = { ...this.state.signUpForm }
+        // for (const formIdentifier in updatedSignUpForm) {
+        //     //forData에 formIdentifier를 키로 inputData를 value로 하는 오브젝트넣기
+        //     formData[formIdentifier] = updatedSignUpForm[formIdentifier].value
+        // }
+        // axiosSignup.post('.json', formData)
+        this.props.onSignUp(this.state.signUpForm.email.value, this.state.signUpForm.password.value)
     }
 
     inputChangedHandler = (event, formIdentifier) => {
@@ -96,7 +93,7 @@ class SignUp extends Component {
             everyValid = updatedSignUpForm[formIdentifier].valid && everyValid
         }
 
-        this.setState({ signUpForm: updatedSignUpForm,isAllValid:everyValid })
+        this.setState({ signUpForm: updatedSignUpForm, isAllValid: everyValid })
     }
 
     checkValid = (value, rules) => {
@@ -110,6 +107,10 @@ class SignUp extends Component {
         }
         if (rules.maxLength) {
             isValid = value.length <= rules.maxLength && isValid
+        }
+        if (rules.isEmail) {
+            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            isValid = pattern.test(value) && isValid
         }
 
         return isValid
@@ -139,17 +140,43 @@ class SignUp extends Component {
                 touched={e.touched}
             />
         )
+        let loadingBackDrop = null
+        if (this.props.loading) {
+            loadingBackDrop = (
+                <Backdrop className={classes.Backdrop} show>
+                    <div className={classes.Spinner}>
+                        <Spinner />
+                    </div>
+                </Backdrop>
+            )
+        }
 
         return (
-            <div className={classes.SignUp}>
-                <div className={classes.Title}>회원가입</div>
-                <form onSubmit={this.signUpHandler}>
-                    {formArr}
-                </form>
-                <Button btnType='Enter' disabled={!this.state.isAllValid}clicked={() => this.signUpHandler()}>회원가입</Button>
-            </div>
+            <>
+                {loadingBackDrop}
+                <div className={classes.SignUp}>
+                    <div className={classes.Title}>회원가입</div>
+                    <form onSubmit={this.signUpHandler}>
+                        {formArr}
+                    </form>
+                    <Button btnType='Enter' disabled={!this.state.isAllValid} clicked={() => this.signUpHandler()}>회원가입</Button>
+                </div>
+            </>
         )
     }
 }
 
-export default SignUp
+const mapStateToProps = state => {
+    return {
+        loading: state.auth.loading
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onSignUp: (email, password) => dispatch(actions.auth(email, password, 'signup'))
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

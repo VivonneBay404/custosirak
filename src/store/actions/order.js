@@ -20,7 +20,7 @@ export const getOrdersFailed = () => {
 }
 
 
-//middleware
+
 //firebase에서 주문정보 가져오기
 export const getOrders = () => {
     return dispatch => {

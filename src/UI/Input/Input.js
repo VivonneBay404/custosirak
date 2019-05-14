@@ -26,10 +26,10 @@ const input = (props) => {
     let inputTag = ''
     switch (props.inputType) {
         case 'input':
-            inputTag = <input className={classes.Input} placeholder={placeholder} onChange={props.changed} />
+            inputTag = <input className={classes.Input} placeholder={placeholder} onChange={props.changed} type={props.type}/>
             break;
         case 'textarea':
-            inputTag = <textarea className={classes.Input} onChange={props.changed} />
+            inputTag = <textarea className={classes.Input} onChange={props.changed} type={props.type}/>
             break;
 
         default:

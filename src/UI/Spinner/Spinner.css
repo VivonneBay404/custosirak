@@ -16,7 +16,7 @@
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background: rgb(121, 121, 121);
+    background: rgb(131, 131, 131);
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
   .ellipsis div:nth-child(1) {
