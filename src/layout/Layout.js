@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
 import Toolbar from '../layout/Toolbar/Toolbar';
 import classes from './Layout.css';
 import SideDrawer from '../layout/SideDrawer/SideDrawer'
@@ -21,8 +22,8 @@ class Layout extends Component {
         return (
             // <div className={classes.Grid}>
             <>
-                <Toolbar sideDrawerToggle={this.sideDrawerToggleHandler}/>
-                <SideDrawer show={this.state.showSideDrawer} canceled={this.sideDrawerCancelhandler}/>
+                <Toolbar sideDrawerToggle={this.sideDrawerToggleHandler} isAuth={this.props.isAuthenticated}/>
+                <SideDrawer show={this.state.showSideDrawer} canceled={this.sideDrawerCancelhandler} isAuth={this.props.isAuthenticated}/>
                 <main className={classes.Content}>
                     {this.props.children}
                 </main>
@@ -32,4 +33,10 @@ class Layout extends Component {
     }
 }
 
-export default Layout
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.auth.token !== null
+    }
+}
+
+export default connect(mapStateToProps)(Layout)

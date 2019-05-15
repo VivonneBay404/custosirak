@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import classes from './SignUp.css'
 import Input from '../../../UI/Input/Input'
 import Button from '../../../UI/Button/Button'
-import axiosSignup from '../../../axios-instance/axios-signUp'
 import * as actions from '../../../store/actions/index'
 import { connect } from 'react-redux'
 import Backdrop from '../../../UI/Backdrop/Backdrop';
 import Spinner from '../../../UI/Spinner/Spinner';
+import errorMessageUpdater from '../errorMessages/errorMessageUpdater'
+import {Redirect} from 'react-router-dom'
 
 class SignUp extends Component {
 
@@ -27,7 +28,7 @@ class SignUp extends Component {
                 value: '',
                 validation: {
                     required: true,
-                    minLength: 5,
+                    minLength: 6,
                     maxLength: 15
                 },
                 valid: false,
@@ -140,21 +141,33 @@ class SignUp extends Component {
                 touched={e.touched}
             />
         )
-        let loadingBackDrop = null
+        //회원가입이 실패하면 에러메시지를 보여줌
+        let errorMessage = null
+        if(this.props.error){
+           errorMessage = errorMessageUpdater(this.props.error.message)
+        }
+        //로딩중이면 백드랍을 보여줌
+        let loadingBackdrop = null
         if (this.props.loading) {
-            loadingBackDrop = (
+            loadingBackdrop = (
                 <Backdrop className={classes.Backdrop} show>
                     <div className={classes.Spinner}>
-                        <Spinner />
+                        <Spinner/>
                     </div>
                 </Backdrop>
             )
         }
+        let authRedirect = null
+        if(this.props.isAuthenticated){
+            authRedirect = <Redirect to='/'/>
+        }
 
         return (
             <>
-                {loadingBackDrop}
+                {authRedirect}
+                {loadingBackdrop}
                 <div className={classes.SignUp}>
+                    {errorMessage}
                     <div className={classes.Title}>회원가입</div>
                     <form onSubmit={this.signUpHandler}>
                         {formArr}
@@ -168,7 +181,9 @@ class SignUp extends Component {
 
 const mapStateToProps = state => {
     return {
-        loading: state.auth.loading
+        loading: state.auth.loading,
+        error: state.auth.error,
+        isAuthenticated: state.auth.token !== null
     }
 }
 

@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 // import Order from '../src/containers/Orders/Orders';
 // import Login from '../src/containers/Auth/Login/Login'
 import Spinner from '../src/UI/Spinner/Spinner'
+import Logout from '../src/containers/Auth/Logout/Logout'
 
 const Order = React.lazy(() => import('../src/containers/Orders/Orders'));
 const Login = React.lazy(() => import('../src/containers/Auth/Login/Login'))
@@ -22,6 +23,7 @@ class App extends Component {
           <Route path='/orders' render={() =><Suspense fallback={<Spinner/>}><Order/></Suspense>} />
           <Route path='/login' render={() =><Suspense fallback={<Spinner/>}><Login/></Suspense>} />
           <Route path='/signup' render={() =><Suspense fallback={<Spinner/>}><SignUp/></Suspense>} />
+          <Route path='/logout' component={Logout}/>
           {/* 만약 없는 url을 치면 redirect to dosirakbuilder */}
           <Route path='/' component={DosirakBuilder} />
         </Switch>

@@ -13,7 +13,7 @@ const sideDrawer = (props) => {
         <>
             <Backdrop show={props.show} canceled={props.canceled} />
             <div className={attachedClasses.join(' ')}>
-                <NavItems  canceled={props.canceled}/>
+                <NavItems  canceled={props.canceled} isAuthenticated ={props.isAuth}/>
             </div>
         </>
     )

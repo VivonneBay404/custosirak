@@ -11,7 +11,6 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import { Redirect } from 'react-router-dom'
 import DiffAddrForm from '../../components/OrderSummary/DiffAddrForm/DiffAddrForm';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions/actionTypes'
 import * as dosirakBuilderActions from '../../store/actions/index'
 
 class DosirakBuilder extends Component {
@@ -85,8 +84,14 @@ class DosirakBuilder extends Component {
 
 
     //주문하기 버튼을 누르면 주문내역이 보이게하고 안보이게하는 메소드
+
     orderButtonHandler = () => {
-        this.setState({ showOrderSummury: true })
+        if(this.props.isAuthenticated){
+            this.setState({ showOrderSummury: true })
+        }else {
+           this.props.history.push('/login')
+        }
+       
     }
     orderCancelHandler = () => {
         this.setState({ showOrderSummury: false, diffAddr: false })
@@ -208,7 +213,8 @@ class DosirakBuilder extends Component {
 const mapStateToProps = state => {
     return {
         menu: state.dosirakBuilder.menu,
-        totalPrice: state.dosirakBuilder.totalPrice
+        totalPrice: state.dosirakBuilder.totalPrice,
+        isAuthenticated: state.auth.token !== null
     }
 }
 const mapDispatchToProps = dispatch => {

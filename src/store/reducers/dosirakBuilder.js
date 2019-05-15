@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes'
 
-const initialState = {
+export const initialState = {
     menu: {
         반찬1: {
             오징어볶음: {
@@ -56,8 +56,9 @@ const reducer = (state = initialState, action) => {
                 totalPrice: action.totalPrc
 
             }
-        // case actionTypes.STORE_INITIALIZE:
-        //     return initialState
+        case actionTypes.STORE_INITIALIZE:
+
+            return state = undefined
             
         default:
             return state;
@@ -80,4 +81,4 @@ const reducer = (state = initialState, action) => {
 }
 
 
-export default reducer
+export {reducer}

@@ -22,3 +22,13 @@
     text-align: center;
     color: black
 }
+
+.Spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.Spinner div div{
+    background: rgb(255, 255, 255)
+}

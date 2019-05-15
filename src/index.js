@@ -7,9 +7,11 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
-import dosirakBuilderReducer from './store/reducers/dosirakBuilder'
+import {reducer as dosirakBuilderReducer}  from './store/reducers/dosirakBuilder'
 import ordersReducer from './store/reducers/order'
 import authReducer from './store/reducers/auth'
+import {initialState} from './store/reducers/dosirakBuilder'
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -18,9 +20,19 @@ const rootReducer = combineReducers({
     orders: ordersReducer,
     auth: authReducer
 })
+// const rootReducer = dosirakBuilderReducer
 
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+// export const initialState = {
+//     initialMenu: {
+//         indexmenu :{
+//             fhkff: 'dsfsf'
+//         }
+//     },
+//     totalPrice: 0
+// }
+
+const store = createStore(rootReducer, {dosirakBuilder: initialState}, composeEnhancers(applyMiddleware(thunk)))
 
 const app = (
     <Provider store={store}>
