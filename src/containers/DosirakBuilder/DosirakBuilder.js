@@ -20,9 +20,16 @@ class DosirakBuilder extends Component {
         canOrder: false,
         loading: false,
         submitted: false,
-        diffAddr: false
+        diffAddr: false,
+        wasRedirectedToAuth: false
     }
 
+    componentDidMount() {
+        if(this.props.wasBuilding){
+            this.setState({showOrderSummury: true})
+            this.props.onSetWasBuildingFalse()
+        }
+    }
 
     menuClickHandler = (item, section) => {
         // const oldSection = this.state.menu[section];
@@ -60,6 +67,7 @@ class DosirakBuilder extends Component {
         // this.setState({ menu: updatedMenu, totalPrice: totalPrice })
         //mapDispatchToProps 사용
         this.props.onMenuClicked(updatedMenu, totalPrice)
+
     }
 
 
@@ -86,13 +94,19 @@ class DosirakBuilder extends Component {
     //주문하기 버튼을 누르면 주문내역이 보이게하고 안보이게하는 메소드
 
     orderButtonHandler = () => {
-        if(this.props.isAuthenticated){
+        if (this.props.isAuthenticated) {
             this.setState({ showOrderSummury: true })
-        }else {
-           this.props.history.push('/login')
         }
-       
+        else {
+            //로그인되있지않으면 wasBuilding을 true로
+            //하나도 선택하지않으면 버튼이 disabled이기때문에 totalPrice>0 if문이 필요없음
+            this.props.onSetWasBuildingTrue()
+            this.props.history.push('/login')
+        }
+
     }
+
+
     orderCancelHandler = () => {
         this.setState({ showOrderSummury: false, diffAddr: false })
     }
@@ -107,7 +121,7 @@ class DosirakBuilder extends Component {
             // price: this.state.totalPrice,
             // connected to store
             price: this.props.totalPrice
-        
+
         }
         axios.post('.json', order)
             .then(respone => {
@@ -123,9 +137,7 @@ class DosirakBuilder extends Component {
             })
     }
 
-    componentDidMount() {
-        console.log(this.props)
-    }
+    
 
     changeToDiff = () => {
         this.setState({ diffAddr: true })
@@ -172,15 +184,16 @@ class DosirakBuilder extends Component {
         if (this.state.submitted) {
             redirect = <Redirect to='/orders' />
         }
-
+        
         return (
             <>
                 {redirect}
-                <Modal 
-                show={this.state.showOrderSummury} 
-                canceled={this.orderCancelHandler} 
-                loading={this.state.loading} 
-                showDiffAddr={this.state.diffAddr}>
+                <Modal
+                    show={this.state.showOrderSummury}
+                    canceled={this.orderCancelHandler}
+                    loading={this.state.loading}
+                    showDiffAddr={this.state.diffAddr}
+                    wasBld={this.props.wasBuilding}>
                     {orderSummary}
                 </Modal>
                 <div className={classes.DosirakBuilder}>
@@ -195,11 +208,11 @@ class DosirakBuilder extends Component {
                             {/* connected to store */}
                             {this.props.totalPrice}
                         </div>
-                        <Button 
-                        btnType="Enter" 
-                        disabled={canOrder} 
-                        className={classes.OrderButton} 
-                        clicked={this.orderButtonHandler} >주문하기</Button>
+                        <Button
+                            btnType="Enter"
+                            disabled={canOrder}
+                            className={classes.OrderButton}
+                            clicked={this.orderButtonHandler} >주문하기</Button>
                     </div>
 
                 </div>
@@ -214,13 +227,16 @@ const mapStateToProps = state => {
     return {
         menu: state.dosirakBuilder.menu,
         totalPrice: state.dosirakBuilder.totalPrice,
-        isAuthenticated: state.auth.token !== null
+        isAuthenticated: state.auth.token !== null,
+        wasBuilding: state.dosirakBuilder.wasBuilding
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onMenuClicked: (updatedMenu, totalPrice) => dispatch(dosirakBuilderActions.menuClicked(updatedMenu,totalPrice)),
-        onOrderSummitted: () =>  dispatch(dosirakBuilderActions.orderSubmitted()) 
+        onMenuClicked: (updatedMenu, totalPrice) => dispatch(dosirakBuilderActions.menuClicked(updatedMenu, totalPrice)),
+        onOrderSummitted: () => dispatch(dosirakBuilderActions.orderSubmitted()),
+        onSetWasBuildingTrue: () => dispatch(dosirakBuilderActions.setWasBuildingTrue()),
+        onSetWasBuildingFalse: () => dispatch(dosirakBuilderActions.setWasBuildingFalse())
     }
 }
 export default withErrorHandler(connect(mapStateToProps, mapDispatchToProps)(DosirakBuilder), axios);

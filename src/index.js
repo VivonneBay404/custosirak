@@ -10,7 +10,8 @@ import thunk from 'redux-thunk'
 import {reducer as dosirakBuilderReducer}  from './store/reducers/dosirakBuilder'
 import ordersReducer from './store/reducers/order'
 import authReducer from './store/reducers/auth'
-import {initialState} from './store/reducers/dosirakBuilder'
+// import {initialState} from './store/reducers/dosirakBuilder'
+// import * as actionTypes from './store/actions/actionTypes'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -20,6 +21,13 @@ const rootReducer = combineReducers({
     orders: ordersReducer,
     auth: authReducer
 })
+// const rootReducer = (state,action) => {
+//     if(action.type === actionTypes.STORE_INITIALIZE){
+//         state = undefined
+//     }
+//     return appReducer(state,action)
+// }
+
 // const rootReducer = dosirakBuilderReducer
 
 
@@ -32,7 +40,7 @@ const rootReducer = combineReducers({
 //     totalPrice: 0
 // }
 
-const store = createStore(rootReducer, {dosirakBuilder: initialState}, composeEnhancers(applyMiddleware(thunk)))
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 const app = (
     <Provider store={store}>

@@ -12,3 +12,15 @@ export const orderSubmitted = () => {
         type: actionTypes.STORE_INITIALIZE
     }
 }
+
+export const setWasBuildingTrue = () => {
+    return {
+        type: actionTypes.SET_WAS_BUILDING_TRUE
+    }
+}
+
+export const setWasBuildingFalse = () => {
+    return {
+        type: actionTypes.SET_WAS_BUILDING_FALSE
+    }
+}
