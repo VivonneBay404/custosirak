@@ -11,8 +11,9 @@
     top: 20%; */
     padding: 1rem;
     transition: all 0.2s ease-out;
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
     margin: 1rem;
+    
 }

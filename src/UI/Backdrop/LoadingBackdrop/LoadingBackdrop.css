@@ -1,0 +1,16 @@
+.LoadingBackdrop {
+    position: fixed;
+    z-index: 500;
+    height: 100%;
+    width: 100%
+}
+
+.Spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.Spinner div div{
+    background: rgb(255, 255, 255)
+}

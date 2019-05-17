@@ -20,7 +20,7 @@
     grid-template-rows: repeat(5, 1fr);
     grid-template-columns: repeat(10, 1fr);
     min-width: 0;
-    min-height: 0;
+    min-height: 30%;
 }
 .Introduction {
     position: absolute;  

@@ -13,14 +13,19 @@ class Order extends Component {
 
     orderCancelHandler = (orderID,getOrders) => {
         this.setState({ deleting: true })
-        axios.delete(orderID + '.json')
+        axios.delete(orderID + '.json?auth='+this.props.token)
             .then(response => {
                 console.log(response)
                
                 //내 주문을 update하기위해
-               getOrders()
+               getOrders(this.props.token,this.props.userId)
                this.setState({ deleting: false})
             })
+            .catch(error => {
+                console.log(error)
+            })
+               
+            
     }
 
     render() {

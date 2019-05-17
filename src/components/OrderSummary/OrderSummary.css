@@ -7,9 +7,20 @@
 
 .HeadLine {
     margin-bottom: 1rem;
+    font-weight: bold
 }
+.SelectedItem {
+    padding: 0.5rem;
+    background-color: #f0932b;
+    border-radius: 10px; 
+    margin-right: 0.5rem;   
+    margin-bottom: 0.5rem;
+}
+
 .SelectedItems {
-    margin: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly
 }
 
 .Price {
@@ -17,5 +28,6 @@
     font-weight: bold;
 }
 .BtnContainer {
-
+    display: flex;
+    flex-direction: column
 }

@@ -12,6 +12,7 @@ import { Redirect } from 'react-router-dom'
 import DiffAddrForm from '../../components/OrderSummary/DiffAddrForm/DiffAddrForm';
 import { connect } from 'react-redux';
 import * as dosirakBuilderActions from '../../store/actions/index'
+import LoadingBackdrop from '../../UI/Backdrop/LoadingBackdrop/LoadingBackdrop'
 
 class DosirakBuilder extends Component {
 
@@ -114,16 +115,17 @@ class DosirakBuilder extends Component {
     //ordersummary의 주문하기 버튼을 누르면 firebase의 데이터베이스로 json 전송
     orderConfirmHandler = () => {
         this.setState({ loading: true })
-        const order = {
+        const orderData = {
             items: this.selectedItemFinder().map(e => {
                 return (e.name)
             }),
             // price: this.state.totalPrice,
             // connected to store
-            price: this.props.totalPrice
+            price: this.props.totalPrice,
+            userId: this.props.userId
 
         }
-        axios.post('.json', order)
+        axios.post('.json?auth=' + this.props.token, orderData)
             .then(respone => {
                 this.setState({ loading: false, showOrderSummury: false, submitted: true });
                 //orders로 리다이렉팅
@@ -158,10 +160,7 @@ class DosirakBuilder extends Component {
         //orderSummary가 로딩중일때 spinner를 보여줌
         let orderSummary = null;
 
-        if (this.state.loading) {
-            orderSummary = <Spinner />
-        }
-        else if (this.state.diffAddr) {
+        if (this.state.diffAddr) {
             orderSummary = <DiffAddrForm canceled={this.orderCancelHandler} />
             console.log('orderSummary =<DiffAddrForm/>')
         }
@@ -170,7 +169,7 @@ class DosirakBuilder extends Component {
                 loading={this.state.loading}
                 selectedItems={items}
                 //connected to stroe
-                // totalPrice={this.state.totalPrice}
+                totalPrice={this.props.totalPrice}
 
                 canceled={this.orderCancelHandler}
                 confirmed={this.orderConfirmHandler}
@@ -184,10 +183,12 @@ class DosirakBuilder extends Component {
         if (this.state.submitted) {
             redirect = <Redirect to='/orders' />
         }
+
         
         return (
             <>
                 {redirect}
+                <LoadingBackdrop className={classes.LoadingBackdrop} loading={this.state.loading}/>
                 <Modal
                     show={this.state.showOrderSummury}
                     canceled={this.orderCancelHandler}
@@ -206,7 +207,7 @@ class DosirakBuilder extends Component {
                         <div className={classes.TotalPrice}>총 가격 :
                         {/* {this.state.totalPrice} */}
                             {/* connected to store */}
-                            {this.props.totalPrice}
+                            {this.props.totalPrice}원
                         </div>
                         <Button
                             btnType="Enter"
@@ -228,7 +229,9 @@ const mapStateToProps = state => {
         menu: state.dosirakBuilder.menu,
         totalPrice: state.dosirakBuilder.totalPrice,
         isAuthenticated: state.auth.token !== null,
-        wasBuilding: state.dosirakBuilder.wasBuilding
+        wasBuilding: state.dosirakBuilder.wasBuilding,
+        userId: state.auth.userId,
+        token: state.auth.token
     }
 }
 const mapDispatchToProps = dispatch => {

@@ -13,20 +13,22 @@ export const getOrdersSuccess = (orders) => {
         orders: orders
     }
 }
-export const getOrdersFailed = () => {
+export const getOrdersFailed = (error) => {
     return {
-        type: actionTypes.GET_ORDERS_FAILED
+        type: actionTypes.GET_ORDERS_FAILED,
+        error: error
     }
 }
 
 
 
 //firebase에서 주문정보 가져오기
-export const getOrders = () => {
+export const getOrders = (token, userId) => {
     return dispatch => {
         dispatch(getOrdersStart())
-    
-        axiosOrders.get('.json')
+        //userId가 같은 주문만 가져오기
+        const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId +'"'
+        axiosOrders.get('.json'+ queryParams)
             .then(response => {
                 let ordersArr = [];
                 //database에서 가져온 data
@@ -46,7 +48,7 @@ export const getOrders = () => {
             }
             )
             .catch(error => {
-                dispatch(getOrdersFailed(error))
+                dispatch(getOrdersFailed(error.response.data.error))
             })
     }
 }

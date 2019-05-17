@@ -3,8 +3,10 @@
     /* border: 1px solid #ccc; */
     flex-direction: column;
     /* justify-content: space-between; */
-    /* height: 100%; */
-    padding-top: 4rem;
+    height: 100%;
+    width: 100%;
+    margin-top: 6rem;
+    box-sizing: border-box;
 }
 
 .TotalPrice {
@@ -25,3 +27,8 @@
     width: 50%;
     background-color: #fff;
 } */
+
+.LoadingBackdrop {
+    position: fixed;
+    z-index: 500;
+}

@@ -1,4 +1,4 @@
-import React, { Component,Suspense } from 'react';
+import React, { Component, Suspense } from 'react';
 import DosirakBuilder from '../src/containers/DosirakBuilder/DosirakBuilder'
 import './App.css';
 import Layout from './layout/Layout';
@@ -24,26 +24,46 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <Layout>
+    //로그인 안된상태의 라우트
+    let routes = (
+      <Switch>
+        <Route path='/dosirakbuilder' component={DosirakBuilder} />
+        <Route path='/login' render={() => <Suspense fallback={<Spinner />}><Login /></Suspense>} />
+        <Route path='/signup' render={() => <Suspense fallback={<Spinner />}><SignUp /></Suspense>} />
+        <Route path='/' component={DosirakBuilder} />
+      </Switch>
+
+    )
+    //로그인 된상태의 라우트
+    if (this.props.isAuthenticated) {
+      routes =
         <Switch>
           <Route path='/dosirakbuilder' component={DosirakBuilder} />
-          <Route path='/orders' render={() =><Suspense fallback={<Spinner/>}><Order/></Suspense>} />
-          <Route path='/login' render={() =><Suspense fallback={<Spinner/>}><Login/></Suspense>} />
-          <Route path='/signup' render={() =><Suspense fallback={<Spinner/>}><SignUp/></Suspense>} />
-          <Route path='/logout' component={Logout}/>
+          <Route path='/orders' render={() => <Suspense fallback={<Spinner />}><Order /></Suspense>} />
+          <Route path='/logout' component={Logout} />
           {/* 만약 없는 url을 치면 redirect to dosirakbuilder */}
           <Route path='/' component={DosirakBuilder} />
         </Switch>
+    }
+
+    return (
+      <Layout>
+        {routes}
       </Layout>
     )
   }
 }
 
-const mapDispatchProps = dispatch => {
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.token !== null
+  }
+}
+
+const mapDispatchToProps = dispatch => {
   return {
     onTryAutoSignup: () => dispatch(actions.authCheckState())
   }
 }
 
-export default withRouter(connect(null, mapDispatchProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

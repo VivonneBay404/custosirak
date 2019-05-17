@@ -4,7 +4,9 @@ const initialState = {
     token: null,
     userId: null,
     error: null,
-    loading: false
+    loading: false,
+    name: null,
+    homeAddress: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -21,7 +23,9 @@ const reducer = (state = initialState, action) => {
                 token: action.idToken,
                 userId: action.userId,
                 error: null,
-                loading: false
+                loading: false,
+                name: action.name,
+                homeAddress: action.homeAddress
             }
         case actionTypes.AUTH_FAILED:
             return {

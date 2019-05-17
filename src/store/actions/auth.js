@@ -1,8 +1,7 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
+import axiosUsers from '../../axios-instance/axios-users'
 
-
-//action creators
 export const authSuccess = (idToken, localId) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
@@ -42,7 +41,7 @@ export const checkAuthTimeout = (expirationTime) => {
 
 }
 
-export const auth = (email, password, authWay) => {
+export const auth = (email, password, authWay, formData) => {
     return dispatch => {
         dispatch(authStart())
         const authData = {
@@ -58,7 +57,10 @@ export const auth = (email, password, authWay) => {
         }
         axios.post(authUrl, authData)
             .then(response => {
-                //n
+                //회원가입이면 database의 users에 저장
+                if(authWay === 'signup'){
+                    axiosUsers.post('.json',{...formData,'userId': response.data.localId})
+                }
                 const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000)
                 localStorage.setItem('token', response.data.idToken)
                 localStorage.setItem('expirationDate', expirationDate)
@@ -72,7 +74,7 @@ export const auth = (email, password, authWay) => {
             })
     }
 }
-
+// 새로고침해도 localStorage에 token이 있다면 다시 로그인하게해주는 actionCreater
 export const authCheckState = () => {
     return dispatch => {
         const token = localStorage.getItem('token')

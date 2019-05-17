@@ -12,8 +12,10 @@ class Orders extends Component {
     //firebase에 있는 orders를 가져는 method
     
     componentDidMount() {
-        this.props.onGetOrders()
+        this.props.onGetOrders(this.props.token,this.props.userId)
     }
+
+    
 
     render() {
 
@@ -26,14 +28,22 @@ class Orders extends Component {
                     price={e.price}
                     items={e.items}
                     orderID={e.key}
-                    getOrders={this.props.onGetOrders}
+                    getOrders={() => this.props.onGetOrders(this.props.token,this.props.userId)}
+                    token = {this.props.token}
+                    userId={this.props.userId}
                 ></Order>
             })
+        }
+        let errorMessage = null
+        if(this.props.error){
+            console.log(this.props.error)
+            errorMessage = <p>주문을 불러올수없습니다.</p>
         }
 
         return (
             <div className={classes.Orders}>
                 <div className={classes.Title}>내 주문</div>
+                {errorMessage}
                 {ordersInfo}
             </div>
         )
@@ -44,12 +54,15 @@ class Orders extends Component {
 const mapStateToProps = state => {
     return {
        orders: state.orders.orders,
-       loading: state.orders.loading
+       loading: state.orders.loading,
+       error: state.orders.error,
+       token: state.auth.token,
+       userId: state.auth.userId
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onGetOrders: () => dispatch(actions.getOrders())
+        onGetOrders: (token,userId) => dispatch(actions.getOrders(token,userId))
     }
 }
 export default connect( mapStateToProps, mapDispatchToProps )( withErrorHandler( Orders, axiosOrders ) );

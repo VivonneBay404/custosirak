@@ -8,6 +8,8 @@ import Backdrop from '../../../UI/Backdrop/Backdrop';
 import Spinner from '../../../UI/Spinner/Spinner';
 import errorMessageUpdater from '../errorMessages/errorMessageUpdater'
 import {Redirect} from 'react-router-dom'
+import LoadingBackdrop from '../../../UI/Backdrop/LoadingBackdrop/LoadingBackdrop'
+import axiosUsers from '../../../axios-instance/axios-users'
 
 class SignUp extends Component {
 
@@ -64,14 +66,14 @@ class SignUp extends Component {
 
     signUpHandler = () => {
         // event.preventDefault();
-        // let formData = {}
-        // const updatedSignUpForm = { ...this.state.signUpForm }
-        // for (const formIdentifier in updatedSignUpForm) {
-        //     //forData에 formIdentifier를 키로 inputData를 value로 하는 오브젝트넣기
-        //     formData[formIdentifier] = updatedSignUpForm[formIdentifier].value
-        // }
-        // axiosSignup.post('.json', formData)
-        this.props.onSignUp(this.state.signUpForm.email.value, this.state.signUpForm.password.value)
+        let formData = {}
+        const updatedSignUpForm = { ...this.state.signUpForm }
+        for (const formIdentifier in updatedSignUpForm) {
+            //forData에 formIdentifier를 키로 inputData를 value로 하는 오브젝트넣기
+            formData[formIdentifier] = updatedSignUpForm[formIdentifier].value
+        }
+        // axiosUsers.post('.json', formData)
+        this.props.onSignUp(this.state.signUpForm.email.value, this.state.signUpForm.password.value, formData)
     }
 
     inputChangedHandler = (event, formIdentifier) => {
@@ -147,16 +149,7 @@ class SignUp extends Component {
            errorMessage = errorMessageUpdater(this.props.error.message)
         }
         //로딩중이면 백드랍을 보여줌
-        let loadingBackdrop = null
-        if (this.props.loading) {
-            loadingBackdrop = (
-                <Backdrop className={classes.Backdrop} show>
-                    <div className={classes.Spinner}>
-                        <Spinner/>
-                    </div>
-                </Backdrop>
-            )
-        }
+        
         let authRedirect = null
         if(this.props.isAuthenticated){
             authRedirect = <Redirect to='/'/>
@@ -165,7 +158,7 @@ class SignUp extends Component {
         return (
             <>
                 {authRedirect}
-                {loadingBackdrop}
+                <LoadingBackdrop loading={this.props.loading}/>
                 <div className={classes.SignUp}>
                     {errorMessage}
                     <div className={classes.Title}>회원가입</div>
@@ -189,7 +182,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSignUp: (email, password) => dispatch(actions.auth(email, password, 'signup'))
+        onSignUp: (email, password,formData) => dispatch(actions.auth(email, password, 'signup',formData))
     }
 }
 
