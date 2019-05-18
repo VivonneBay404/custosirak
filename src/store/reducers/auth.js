@@ -5,7 +5,7 @@ const initialState = {
     userId: null,
     error: null,
     loading: false,
-    name: null,
+    userName: null,
     homeAddress: null
 }
 
@@ -23,9 +23,8 @@ const reducer = (state = initialState, action) => {
                 token: action.idToken,
                 userId: action.userId,
                 error: null,
-                loading: false,
-                name: action.name,
-                homeAddress: action.homeAddress
+                // loading: false,
+              
             }
         case actionTypes.AUTH_FAILED:
             return {
@@ -37,7 +36,33 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 token: null,
-                userId: null
+                userId: null,
+                userName: null,
+                homeAddress: null
+            }
+            case actionTypes.AUTH_CLEANUP_ERROR:
+            return {
+                ...state,
+                error: null
+            }
+        case actionTypes.GET_USER_INFO_START:
+            return {
+                ...state,
+                loading: true,
+                error: null
+            }
+        case actionTypes.GET_USER_INFO_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            }
+        case actionTypes.GET_USER_INFO_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                userName: action.userName,
+                homeAddress: action.homeAddress
             }
         default:
             return state

@@ -21,13 +21,13 @@ class DosirakBuilder extends Component {
         canOrder: false,
         loading: false,
         submitted: false,
-        diffAddr: false,
-        wasRedirectedToAuth: false
+        diffAddr: false
     }
 
     componentDidMount() {
-        if(this.props.wasBuilding){
-            this.setState({showOrderSummury: true})
+        //메뉴를 선택했고 auth를 가지고 dosirakbuilder에 왔다면 오더서머리를 보여줌
+        if (this.props.wasBuilding && this.props.isAuthenticated) {
+            this.setState({ showOrderSummury: true })
             this.props.onSetWasBuildingFalse()
         }
     }
@@ -115,6 +115,10 @@ class DosirakBuilder extends Component {
     //ordersummary의 주문하기 버튼을 누르면 firebase의 데이터베이스로 json 전송
     orderConfirmHandler = () => {
         this.setState({ loading: true })
+        let deliveryAddress = this.props.deliveryAddress
+        if (this.state.diffAddr) {
+            deliveryAddress = this.props.diffAddr
+        }
         const orderData = {
             items: this.selectedItemFinder().map(e => {
                 return (e.name)
@@ -122,7 +126,9 @@ class DosirakBuilder extends Component {
             // price: this.state.totalPrice,
             // connected to store
             price: this.props.totalPrice,
-            userId: this.props.userId
+            userId: this.props.userId,
+            userName: this.props.userName,
+            deliveryAddress: deliveryAddress
 
         }
         axios.post('.json?auth=' + this.props.token, orderData)
@@ -139,7 +145,7 @@ class DosirakBuilder extends Component {
             })
     }
 
-    
+
 
     changeToDiff = () => {
         this.setState({ diffAddr: true })
@@ -161,7 +167,11 @@ class DosirakBuilder extends Component {
         let orderSummary = null;
 
         if (this.state.diffAddr) {
-            orderSummary = <DiffAddrForm canceled={this.orderCancelHandler} />
+            orderSummary =
+                <DiffAddrForm
+                    canceled={this.orderCancelHandler}
+                    confirmed={this.orderConfirmHandler}
+                    setDiffAddr={this.props.onSetDiffAddr} />
             console.log('orderSummary =<DiffAddrForm/>')
         }
         else {
@@ -184,11 +194,11 @@ class DosirakBuilder extends Component {
             redirect = <Redirect to='/orders' />
         }
 
-        
+
         return (
             <>
                 {redirect}
-                <LoadingBackdrop className={classes.LoadingBackdrop} loading={this.state.loading}/>
+                <LoadingBackdrop className={classes.LoadingBackdrop} loading={this.state.loading} />
                 <Modal
                     show={this.state.showOrderSummury}
                     canceled={this.orderCancelHandler}
@@ -231,7 +241,10 @@ const mapStateToProps = state => {
         isAuthenticated: state.auth.token !== null,
         wasBuilding: state.dosirakBuilder.wasBuilding,
         userId: state.auth.userId,
-        token: state.auth.token
+        token: state.auth.token,
+        userName: state.auth.userName,
+        deliveryAddress: state.auth.homeAddress,
+        diffAddr: state.dosirakBuilder.diffAddr
     }
 }
 const mapDispatchToProps = dispatch => {
@@ -239,7 +252,8 @@ const mapDispatchToProps = dispatch => {
         onMenuClicked: (updatedMenu, totalPrice) => dispatch(dosirakBuilderActions.menuClicked(updatedMenu, totalPrice)),
         onOrderSummitted: () => dispatch(dosirakBuilderActions.orderSubmitted()),
         onSetWasBuildingTrue: () => dispatch(dosirakBuilderActions.setWasBuildingTrue()),
-        onSetWasBuildingFalse: () => dispatch(dosirakBuilderActions.setWasBuildingFalse())
+        onSetWasBuildingFalse: () => dispatch(dosirakBuilderActions.setWasBuildingFalse()),
+        onSetDiffAddr: (event) => dispatch(dosirakBuilderActions.setDiffAddr(event))
     }
 }
 export default withErrorHandler(connect(mapStateToProps, mapDispatchToProps)(DosirakBuilder), axios);

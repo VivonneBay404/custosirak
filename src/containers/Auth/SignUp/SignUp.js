@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import Backdrop from '../../../UI/Backdrop/Backdrop';
 import Spinner from '../../../UI/Spinner/Spinner';
 import errorMessageUpdater from '../errorMessages/errorMessageUpdater'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import LoadingBackdrop from '../../../UI/Backdrop/LoadingBackdrop/LoadingBackdrop'
 import axiosUsers from '../../../axios-instance/axios-users'
 
@@ -18,6 +18,7 @@ class SignUp extends Component {
             email: {
                 inputType: 'input',
                 value: '',
+                type: 'email',
                 validation: {
                     required: true,
                     isEmail: true
@@ -28,6 +29,7 @@ class SignUp extends Component {
             password: {
                 inputType: 'input',
                 value: '',
+                type: 'password',
                 validation: {
                     required: true,
                     minLength: 6,
@@ -39,10 +41,11 @@ class SignUp extends Component {
             이름: {
                 inputType: 'input',
                 value: '',
+                type: 'text',
                 validation: {
                     required: true,
                     minLength: 2,
-                    maxLength: 10
+                    maxLength: 20
                 },
                 valid: false,
                 touched: false
@@ -51,10 +54,11 @@ class SignUp extends Component {
             집주소: {
                 inputType: 'input',
                 value: '',
+                type: 'text',
                 validation: {
                     required: true,
                     minLength: 10,
-                    maxLength: 30
+                    maxLength: 50
                 },
                 valid: false,
                 touched: false
@@ -62,6 +66,9 @@ class SignUp extends Component {
         },
         loading: false,
         isAllValid: false
+    }
+    componentDidMount() {
+        this.props.onCleanupError()
     }
 
     signUpHandler = () => {
@@ -118,6 +125,9 @@ class SignUp extends Component {
 
         return isValid
     }
+    goBackButtonHandler = () => {
+        window.history.back()
+    }
 
     render() {
         //signupform 카피
@@ -130,7 +140,8 @@ class SignUp extends Component {
                 inputType: updatedSignUpForm[key].inputType,
                 value: updatedSignUpForm[key].value,
                 valid: updatedSignUpForm[key].valid,
-                touched: updatedSignUpForm[key].touched
+                touched: updatedSignUpForm[key].touched,
+                type: updatedSignUpForm[key].type
             })
         }
         //formArr를 loop
@@ -141,31 +152,40 @@ class SignUp extends Component {
                 changed={(event) => this.inputChangedHandler(event, e.key)}
                 valid={!e.valid}
                 touched={e.touched}
+                type={e.type}
             />
         )
         //회원가입이 실패하면 에러메시지를 보여줌
         let errorMessage = null
-        if(this.props.error){
-           errorMessage = errorMessageUpdater(this.props.error.message)
+        if (this.props.error) {
+            errorMessage = errorMessageUpdater(this.props.error.message)
         }
         //로딩중이면 백드랍을 보여줌
-        
+
         let authRedirect = null
-        if(this.props.isAuthenticated){
-            authRedirect = <Redirect to='/'/>
+        if (this.props.isAuthenticated) {
+            authRedirect = <Redirect to='/' />
         }
 
         return (
             <>
                 {authRedirect}
-                <LoadingBackdrop loading={this.props.loading}/>
+                <LoadingBackdrop loading={this.props.loading} />
                 <div className={classes.SignUp}>
-                    {errorMessage}
-                    <div className={classes.Title}>회원가입</div>
+                    <div className={classes.BackButton}>
+                        <Button btnType='Cancel' clicked={this.goBackButtonHandler}>뒤로가기</Button>
+                        <div className={classes.ErrorMessage}>
+                            {errorMessage}
+                        </div>
+                    </div>
+
+                    {/* <div className={classes.Title}>회원가입</div> */}
                     <form onSubmit={this.signUpHandler}>
                         {formArr}
+
                     </form>
                     <Button btnType='Enter' disabled={!this.state.isAllValid} clicked={() => this.signUpHandler()}>회원가입</Button>
+
                 </div>
             </>
         )
@@ -182,7 +202,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSignUp: (email, password,formData) => dispatch(actions.auth(email, password, 'signup',formData))
+        onSignUp: (email, password, formData) => dispatch(actions.auth(email, password, 'signup', formData)),
+        onCleanupError: () => dispatch(actions.authCleanupError())
     }
 }
 

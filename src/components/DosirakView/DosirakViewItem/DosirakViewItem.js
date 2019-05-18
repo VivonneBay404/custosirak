@@ -2,7 +2,14 @@ import React from 'react';
 import classes from './DosirakViewItem.css'
 import octopus from '../../../assets/images/foodItems/fried-octopus.png'
 import kimchi from '../../../assets/images/foodItems/kimchi.png'
-import whiteRice from '../../../assets/images/foodItems/white-rice.jpg'
+import whiteRice from '../../../assets/images/foodItems/white-rice-alpha.png'
+import friedRice from '../../../assets/images/foodItems/fried-rice.png'
+import garlicStalk from '../../../assets/images/foodItems/garlic-stalk.png'
+import cucumber from '../../../assets/images/foodItems/cucumber.png'
+import bulgogi from '../../../assets/images/foodItems/bulgogi.png'
+import muKimchi from '../../../assets/images/foodItems/mu-kimchi.png'
+import soybeanSoup from '../../../assets/images/foodItems/soybean-soup.png'
+import soontofuSoup from '../../../assets/images/foodItems/soontofu-soup.png'
 
 
 const dosirakItems = (props) => {
@@ -40,6 +47,27 @@ const dosirakItems = (props) => {
             break;
         case '백미밥':
             itemForGrid = whiteRice
+            break;
+        case '볶음밥':
+            itemForGrid = friedRice
+            break;
+        case '마늘쫑':
+            itemForGrid = garlicStalk
+            break;
+        case '오이짱아찌':
+            itemForGrid = cucumber
+            break;
+        case '불고기':
+            itemForGrid = bulgogi
+            break;
+        case '무김치':
+            itemForGrid = muKimchi
+            break;
+        case '된장찌개':
+            itemForGrid = soybeanSoup
+            break;
+        case '순두부찌개':
+            itemForGrid = soontofuSoup
             break;
         default:
             break;

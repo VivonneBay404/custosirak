@@ -11,15 +11,15 @@ export const initialState = {
             }
         },
         반찬2: {
-            오뎅볶음: {
+            마늘쫑: {
                 selected: false, price: 800
             },
-            가지볶음: {
+            오이짱아찌: {
                 selected: false, price: 900
             }
         },
         반찬3: {
-            볶은김치: {
+            무김치: {
                 selected: false, price: 600
             },
             김치: {
@@ -30,21 +30,22 @@ export const initialState = {
             백미밥: {
                 selected: false, price: 500
             },
-            현미밥: {
+            볶음밥: {
                 selected: false, price: 600
             }
         },
         국: {
-            된장국: {
+            된장찌개: {
                 selected: false, price: 800
             },
-            미역국: {
+            순두부찌개: {
                 selected: false, price: 600
             }
         }
     },
     totalPrice: 0,
-    wasBuilding: false
+    wasBuilding: false,
+    diffAddr: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -70,15 +71,15 @@ const reducer = (state = initialState, action) => {
                         }
                     },
                     반찬2: {
-                        오뎅볶음: {
+                        마늘쫑: {
                             selected: false, price: 800
                         },
-                        가지볶음: {
+                        오이짱아찌: {
                             selected: false, price: 900
                         }
                     },
                     반찬3: {
-                        볶은김치: {
+                        무김치: {
                             selected: false, price: 600
                         },
                         김치: {
@@ -89,15 +90,15 @@ const reducer = (state = initialState, action) => {
                         백미밥: {
                             selected: false, price: 500
                         },
-                        현미밥: {
+                        볶음밥: {
                             selected: false, price: 600
                         }
                     },
                     국: {
-                        된장국: {
+                        된장찌개: {
                             selected: false, price: 800
                         },
-                        미역국: {
+                        순두부찌개: {
                             selected: false, price: 600
                         }
                     }
@@ -109,10 +110,15 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 wasBuilding: true
             }
-            case actionTypes.SET_WAS_BUILDING_FALSE:
+        case actionTypes.SET_WAS_BUILDING_FALSE:
             return {
                 ...state,
                 wasBuilding: false
+            }
+        case actionTypes.SET_DIFF_ADDR:
+            return {
+                ...state,
+                diffAddr: action.diffAddr
             }
         default:
             return state;

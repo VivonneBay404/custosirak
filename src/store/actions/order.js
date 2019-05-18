@@ -39,7 +39,8 @@ export const getOrders = (token, userId) => {
                         {
                             key: orderID,
                             items: ordersData[orderID].items,
-                            price: ordersData[orderID].price
+                            price: ordersData[orderID].price,
+                            deliveryAddress: ordersData[orderID].deliveryAddress
                         }
                     )
 

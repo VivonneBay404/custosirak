@@ -1,6 +1,11 @@
 .SignUp {
     font-size: 1.5rem;
     padding-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 90%;
+    justify-content: center;
 }
 
 .Title {
@@ -16,4 +21,19 @@
 }
 .Spinner div div{
     background: rgb(255, 255, 255)
+}
+
+
+.SignUp button:not(:disabled) {
+    animation: none
+}
+
+.BackButton {
+    width: fit-content;
+    margin-bottom: 5rem;
+}
+
+.ErrorMessage {
+    position: absolute;
+    /* top: 13rem; */
 }

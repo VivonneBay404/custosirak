@@ -46,6 +46,7 @@ class Order extends Component {
                 선택한 아이템:
                 <div className={classes.Items}>{items}</div>
                 <div className={classes.Price}>총 가격: {this.props.price}원</div>
+                <div>배달주소: {this.props.deliveryAddress}</div>
                 <Button btnType='Cancel' clicked={() => this.orderCancelHandler(this.props.orderID,this.props.getOrders)}>{deleteInfo}</Button>
             </div>
             

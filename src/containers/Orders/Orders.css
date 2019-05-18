@@ -17,3 +17,8 @@
     align-items: center;
     height: 70%;
 }
+
+.OrdersContainer {
+    display: flex;
+    flex-direction: column-reverse
+}

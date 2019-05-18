@@ -23,24 +23,6 @@ export const authStart = () => {
     }
 }
 
-export const logout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('expirationDate')
-    localStorage.removeItem('userId')
-    return {
-        type: actionTypes.AUTH_LOGOUT
-    }
-}
-// 일정시간이 지나면 로그아웃되는 액션
-export const checkAuthTimeout = (expirationTime) => {
-    return dispatch => {
-        setTimeout(() => {
-            dispatch(logout())
-        }, expirationTime * 1000);
-    }
-
-}
-
 export const auth = (email, password, authWay, formData) => {
     return dispatch => {
         dispatch(authStart())
@@ -61,6 +43,7 @@ export const auth = (email, password, authWay, formData) => {
                 if(authWay === 'signup'){
                     axiosUsers.post('.json',{...formData,'userId': response.data.localId})
                 }
+                dispatch(getUserInfo(response.data.localId))
                 const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000)
                 localStorage.setItem('token', response.data.idToken)
                 localStorage.setItem('expirationDate', expirationDate)
@@ -74,6 +57,80 @@ export const auth = (email, password, authWay, formData) => {
             })
     }
 }
+
+export const authCleanupError = () => {
+    return {
+        type: actionTypes.AUTH_CLEANUP_ERROR
+    }
+}
+
+
+
+export const getUserInfoStart = () => {
+    return {
+        type: actionTypes.GET_USER_INFO_START
+    }
+}
+export const getUserInfoFailed = (error) => {
+    return {
+        type: actionTypes.GET_USER_INFO_FAILED,
+        error: error
+    }
+}
+export const getUserInfoSuccess = (userName, homeAddress) => {
+    return {
+        type: actionTypes.GET_USER_INFO_SUCCESS,
+        userName: userName,
+        homeAddress: homeAddress
+    }
+}
+
+export const getUserInfo = (userId) => {
+    return dispatch => {
+        dispatch(getUserInfoStart())
+        const queryParams = '?orderBy="userId"&equalTo="' + userId +'"'
+        axiosUsers.get('.json' + queryParams)
+        .then(response => {
+            console.log('getUserInfo Response: ' + response.data)
+            const userData = response.data
+            let updatedUserData = {}
+            for(const userDBId in userData){
+                updatedUserData= {
+                    name: userData[userDBId].이름,
+                    homeAddress: userData[userDBId].집주소
+                }
+               
+            }
+            dispatch(getUserInfoSuccess( updatedUserData.name, updatedUserData.homeAddress))
+        })
+        .catch(error => {
+            dispatch(getUserInfoFailed(error))
+        })
+    }
+   
+}
+
+
+
+
+export const logout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('expirationDate')
+    localStorage.removeItem('userId')
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    }
+}
+// 일정시간이 지나면 로그아웃되는 액션
+export const checkAuthTimeout = (expirationTime) => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(logout())
+        }, expirationTime * 1000);
+    }
+
+}
+
 // 새로고침해도 localStorage에 token이 있다면 다시 로그인하게해주는 actionCreater
 export const authCheckState = () => {
     return dispatch => {

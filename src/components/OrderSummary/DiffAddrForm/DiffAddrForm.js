@@ -9,9 +9,9 @@ const DiffAddrForm = (props) => {
     return (
         <div className={classes.DiffAddrForm}>
         
-            <Input label='다른 주소로 주문' inputType='input' placeholder='다른 주소'/>
+            <Input label='다른 주소로 주문' inputType='input' placeholder='다른 주소' changed={(event) => props.setDiffAddr(event)}/>
             <Button btnType='Cancel' clicked={props.canceled}>취소</Button>
-            <Button btnType='Enter'>주문하기</Button>
+            <Button btnType='Enter' clicked={props.confirmed}>주문하기</Button>
             
         </div>
     )

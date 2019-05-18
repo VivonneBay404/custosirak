@@ -31,6 +31,7 @@ class Orders extends Component {
                     getOrders={() => this.props.onGetOrders(this.props.token,this.props.userId)}
                     token = {this.props.token}
                     userId={this.props.userId}
+                    deliveryAddress={e.deliveryAddress}
                 ></Order>
             })
         }
@@ -44,7 +45,10 @@ class Orders extends Component {
             <div className={classes.Orders}>
                 <div className={classes.Title}>내 주문</div>
                 {errorMessage}
-                {ordersInfo}
+                <div className={classes.OrdersContainer}>
+                    {ordersInfo}
+                </div>
+               
             </div>
         )
 

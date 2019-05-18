@@ -1,15 +1,25 @@
 .Input {
+  position: relative;
+}
+
+.InputBox {
   padding: 1rem;
   font-size: 1.3rem;
   margin: 0.5rem;
   border: 1px solid grey;
+  width: 85%
 }
 
-.Input:focus,
-.Input:active{
+.InputBox:focus,
+.InputBox:active{
     border: 1px solid #f0932b;
 }
 
 .Invalid {
-  color: #ff7979
+  color: #ff7979;
+  position: absolute;
+  bottom: 4.8rem;
+  font-size: 1.2rem;
+  left: 7rem;
+  border: 0;
 }

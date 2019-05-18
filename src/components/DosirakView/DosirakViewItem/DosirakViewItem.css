@@ -1,9 +1,10 @@
 .DosirakViewItem {
-    /* min-width: 0; */
-    /* overflow: hidden; */
+    min-width: 0; 
+ /* overflow: hidden;  */
 }
 img {
-    height: auto;
-    max-width: 100px;
+    height: 100%;
+    width: 100%;
+    /* max-width: 100px; */
     object-fit: contain;
 }

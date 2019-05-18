@@ -24,3 +24,9 @@ export const setWasBuildingFalse = () => {
         type: actionTypes.SET_WAS_BUILDING_FALSE
     }
 }
+export const setDiffAddr = (event) => {
+    return {
+        type: actionTypes.SET_DIFF_ADDR,
+        diffAddr: event.target.value
+    }
+}

@@ -26,10 +26,10 @@ const input = (props) => {
     let inputTag = ''
     switch (props.inputType) {
         case 'input':
-            inputTag = <input className={classes.Input} placeholder={placeholder} onChange={props.changed} type={props.type}/>
+            inputTag = <input className={classes.InputBox} placeholder={placeholder} onChange={props.changed} type={props.type}/>
             break;
         case 'textarea':
-            inputTag = <textarea className={classes.Input} onChange={props.changed} type={props.type}/>
+            inputTag = <textarea className={classes.InputBox} onChange={props.changed} type={props.type}/>
             break;
 
         default:
@@ -41,11 +41,11 @@ const input = (props) => {
         invalidInfo = <div className={classes.Invalid}>적합하지않은 입력입니다</div>
     }
     return (
-        <>
+        <div className={classes.Input}>
             <div>{props.label}</div>
             {invalidInfo}
             {inputTag}
-        </>
+        </div>
 
     )
 

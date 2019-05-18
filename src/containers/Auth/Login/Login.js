@@ -5,11 +5,8 @@ import Button from '../../../UI/Button/Button'
 import { NavLink } from 'react-router-dom'
 import * as actions from '../../../store/actions/index'
 import { connect } from 'react-redux'
-import Backdrop from '../../../UI/Backdrop/Backdrop'
-import Spinner from '../../../UI/Spinner/Spinner'
 import errorMessageUpdater from '../errorMessages/errorMessageUpdater'
 import { Redirect } from 'react-router-dom'
-import loadingBackdrop from '../../../UI/Backdrop/LoadingBackdrop/LoadingBackdrop'
 import LoadingBackdrop from '../../../UI/Backdrop/LoadingBackdrop/LoadingBackdrop';
 
 
@@ -35,6 +32,9 @@ class Login extends Component {
 
     }
 
+    componentDidMount(){
+        this.props.onCleanupError()
+    }
     render() {
 
         let errorMessage = null
@@ -43,10 +43,13 @@ class Login extends Component {
         }
 
         let authRedirect = null
-        if (this.props.isAuthenticated) {
+        if (this.props.isAuthenticated && this.props.isUserInfoLoaded) {
             authRedirect = <Redirect to='/' />
         }
-
+        let disability = false
+        if (this.state.email === '' || this.state.password === '') {
+            disability = true
+        }
         return (
             <>
                 {authRedirect}
@@ -57,7 +60,7 @@ class Login extends Component {
                     <form onSubmit={this.loginHandler} className={classes.Form}>
                         <Input inputType='input' placeholder='eamil' type='email' changed={event => this.inputChangedhandler(event, 'email')} />
                         <Input inputType='input' placeholder='password' type='password' changed={event => this.inputChangedhandler(event, 'password')} />
-                        <Button>로그인</Button>
+                        <Button disabled={disability}>로그인</Button>
                         <NavLink className={classes.Button} to='/signup'>회원가입</NavLink>
                     </form>
 
@@ -71,13 +74,15 @@ const mapStateToProps = state => {
     return {
         loading: state.auth.loading,
         error: state.auth.error,
-        isAuthenticated: state.auth.token !== null
+        isAuthenticated: state.auth.token !== null,
+        isUserInfoLoaded: state.auth.userName !== null
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLogin: (email, password) => dispatch(actions.auth(email, password, 'login'))
+        onLogin: (email, password) => dispatch(actions.auth(email, password, 'login')),
+        onCleanupError: () => dispatch(actions.authCleanupError())
     }
 }
 
