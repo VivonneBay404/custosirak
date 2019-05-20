@@ -26,6 +26,12 @@
     font-family: inherit;
 }
 .Section {
-    font-size: 1.5rem;
+    font-size: inherit;
     margin: auto;
+}
+
+@media(min-width: 700px){
+    .BuildControl button {
+        font-size: inherit
+    }
 }

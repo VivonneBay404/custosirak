@@ -1,9 +1,15 @@
 .WebAppInfos {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 100%;
   width: 100%;
   margin-top: 8rem;
   padding: 1rem;
+}
+
+.WebAppInfos li{
+  margin: 0.5rem;
 }
 
 .MyPhoto {
@@ -29,6 +35,10 @@
   max-width: 100px;
   object-fit: contain;
   margin: 0.2rem;
+}
+
+@media(min-width: 1200px){
+ 
 }
 
 

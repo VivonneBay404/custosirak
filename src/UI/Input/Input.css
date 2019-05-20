@@ -23,3 +23,9 @@
   left: 7rem;
   border: 0;
 }
+
+@media(min-width: 1200px){
+  .Input {
+    margin-bottom: 2rem;
+  }
+}

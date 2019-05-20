@@ -1,6 +1,6 @@
 .SideDrawer {
     position: fixed;
-    background-color: #fff;
+    background-color: rgb(216, 216, 216);
     width: 15rem;
     max-width: 60%;
     height: 100%;
@@ -12,7 +12,7 @@
     box-sizing: border-box;
 }
 
-@media(min-width: 500px) {
+@media(min-width: 1200px) {
     .SideDrawer {
         display: none;
     }

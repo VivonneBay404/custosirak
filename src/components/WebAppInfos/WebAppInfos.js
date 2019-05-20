@@ -22,7 +22,7 @@ const webAppInfos = () => {
                 <br /><br /> 서울 서대문구에 살고있고 react Web front-end 개발자 일자리를 구하고 있습니다.
                 <br /><br /> 아직 경력은 없지만 열린마음으로 배우고 일하고 싶습니다.
                 <br /><br /> 이 포트폴리오를 보고 채용할 관심이있으시다면 asthma404@gmail.com 으로 연락주세요!
-                <br /> 감사합니다!
+                <br /><br /> 감사합니다!
             </WebAppInfo>
             <WebAppInfo title='기획의도'>
                 <img className={classes.Dosirak} src={dosirakPicture} alt='도시락' />
@@ -40,7 +40,7 @@ const webAppInfos = () => {
                     <li>redux를 이용한 state management</li>
                     <li>css media query를 이용한 responsive app</li>
                     <li>axios를 이용한 비동기적 http통신</li>
-                    <li>firebase를 사용하여 내 주문과 유저관리</li>
+                    <li>firebase를 사용하여 데이터저장과 유저 authentication</li>
                 </ul>
                 <h3>사용기술</h3>
                 <div className={classes.Tech}>

@@ -7,6 +7,7 @@
     width: 100%;
     margin-top: 6rem;
     box-sizing: border-box;
+    
 }
 
 .TotalPrice {
@@ -25,4 +26,22 @@
 .LoadingBackdrop {
     position: fixed;
     z-index: 500;
+}
+
+@media(min-width: 1200px){
+    .DosirakBuilder {
+        max-width: 50%;
+    }
+
+    .PriceAndOrderFlexContainer {
+        display: flex;
+        justify-content: space-around;
+        font-size: 2.5rem;
+    }
+    .TotalPrice {
+        font-size: inherit
+    }
+    .PriceAndOrderFlexContainer button {
+        font-size: inherit
+    }
 }

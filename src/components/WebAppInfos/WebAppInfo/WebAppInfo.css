@@ -2,5 +2,15 @@
     border-bottom: 1px solid black;
     font-size: 1rem;
     padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+}
+
+@media(min-width: 1200px){
+    .WebAppInfo {
+        font-size: 1.5rem;
+    }
 }
 

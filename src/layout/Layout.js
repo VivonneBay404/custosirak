@@ -22,7 +22,7 @@ class Layout extends Component {
         return (
             // <div className={classes.Grid}>
             <>
-                <Toolbar sideDrawerToggle={this.sideDrawerToggleHandler} isAuth={this.props.isAuthenticated} />
+                <Toolbar sideDrawerToggle={this.sideDrawerToggleHandler} isAuth={this.props.isAuthenticated} userName={this.props.userName}/>
                 <SideDrawer
                     show={this.state.showSideDrawer}
                     canceled={this.sideDrawerCancelhandler}

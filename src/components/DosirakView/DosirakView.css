@@ -19,8 +19,9 @@
                          "rice rice rice rice rice soup soup soup soup soup";
     grid-template-rows: repeat(5, 1fr);
     grid-template-columns: repeat(10, 1fr);
-    min-width: 0;
+    min-width: 50%;
     min-height: 30%;
+    max-width: 500px;
 }
 .Introduction {
     position: absolute;  
@@ -68,4 +69,10 @@
     margin: 0.5rem;
 }
 
-
+@media(min-width: 1200px){
+    .Dosirak {
+        max-width: 500px;
+        max-height: 30%;
+        /* min-height: 30% */
+    }
+}
