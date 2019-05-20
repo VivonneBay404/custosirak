@@ -45,7 +45,7 @@ export const initialState = {
     },
     totalPrice: 0,
     wasBuilding: false,
-    diffAddr: null
+    diffAddr: ''
 }
 
 const reducer = (state = initialState, action) => {
@@ -123,20 +123,6 @@ const reducer = (state = initialState, action) => {
         default:
             return state;
     }
-    // return {
-    //     ...state,
-    //     menu: {
-    //         ...state.menu,
-    //         [action.sectionID]: {
-    //             ...state.menu[action.sectionID],
-    //             [action.itemID]: {
-    //                 ...state.menu[action.sectionID][action.itemID],
-    //                 [action.itemID]: state.menu[action.sectionID][action.itemID].selected
-    //             }
-    //         }
-
-    //     }
-    // }
 
 }
 

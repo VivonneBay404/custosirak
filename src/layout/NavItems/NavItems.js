@@ -7,7 +7,7 @@ const navItems = (props) => {
     return (
         <div className={classes.NavItems}>
             {props.userName
-                ? <div className={classes.UserName}><i>Welcome!</i> <br/> {props.userName}</div>
+                ? <div className={classes.UserName}><i>Welcome!</i> <br /> {props.userName}</div>
                 : null}
             {/* isAuthenticated가 true 면 log out을 보여주고 아니면 log in을 보여줌 */}
             {props.isAuthenticated
@@ -19,6 +19,7 @@ const navItems = (props) => {
             {props.isAuthenticated
                 ? <NavItem link='/orders' closed={sideDrawerClosed}>내 주문</NavItem>
                 : null}
+            <NavItem link='/aboutThisWebApp' closed={sideDrawerClosed} >About This Web App</NavItem>
 
 
         </div>

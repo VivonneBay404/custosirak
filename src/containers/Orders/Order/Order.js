@@ -30,13 +30,13 @@ class Order extends Component {
 
     render() {
 
-        let deleteInfo = '삭제'
+        let deleteInfo = '취소'
         if (this.state.deleting) {
-            deleteInfo = '삭제중...'
+            deleteInfo = '취소중...'
         }
         let items = this.props.items
         items = items.map(e => {
-            return <div className={classes.Item}>{e}</div>
+            return <div key={e} className={classes.Item}>{e}</div>
         })
         return (
             

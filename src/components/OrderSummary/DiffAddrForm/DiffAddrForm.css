@@ -1,0 +1,8 @@
+.DiffAddrForm {
+
+}
+
+
+.DiffAddrForm button:not(:disabled) {
+    animation: none
+}

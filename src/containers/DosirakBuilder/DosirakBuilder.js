@@ -6,7 +6,6 @@ import Button from '../../UI/Button/Button';
 import Modal from '../../UI/Modal/Modal'
 import OrderSummary from '../../components/OrderSummary/OrderSummary'
 import axios from '../../axios-instance/axios-orders'
-import Spinner from '../../UI/Spinner/Spinner'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import { Redirect } from 'react-router-dom'
 import DiffAddrForm from '../../components/OrderSummary/DiffAddrForm/DiffAddrForm';
@@ -14,7 +13,7 @@ import { connect } from 'react-redux';
 import * as dosirakBuilderActions from '../../store/actions/index'
 import LoadingBackdrop from '../../UI/Backdrop/LoadingBackdrop/LoadingBackdrop'
 
-class DosirakBuilder extends Component {
+export class DosirakBuilder extends Component {
 
     state = {
         showOrderSummury: false,
@@ -171,8 +170,8 @@ class DosirakBuilder extends Component {
                 <DiffAddrForm
                     canceled={this.orderCancelHandler}
                     confirmed={this.orderConfirmHandler}
-                    setDiffAddr={this.props.onSetDiffAddr} />
-            console.log('orderSummary =<DiffAddrForm/>')
+                    setDiffAddr={this.props.onSetDiffAddr}
+                    diffAddr={this.props.diffAddr} />
         }
         else {
             orderSummary = <OrderSummary
@@ -185,7 +184,6 @@ class DosirakBuilder extends Component {
                 confirmed={this.orderConfirmHandler}
                 changeToDiff={this.changeToDiff}
             ></OrderSummary>
-            console.log('<OrderSummary>')
         }
 
         //주문이 완료되면 /orders로 리다이렉트

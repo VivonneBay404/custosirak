@@ -4,12 +4,9 @@ import Input from '../../../UI/Input/Input'
 import Button from '../../../UI/Button/Button'
 import * as actions from '../../../store/actions/index'
 import { connect } from 'react-redux'
-import Backdrop from '../../../UI/Backdrop/Backdrop';
-import Spinner from '../../../UI/Spinner/Spinner';
 import errorMessageUpdater from '../errorMessages/errorMessageUpdater'
 import { Redirect } from 'react-router-dom'
 import LoadingBackdrop from '../../../UI/Backdrop/LoadingBackdrop/LoadingBackdrop'
-import axiosUsers from '../../../axios-instance/axios-users'
 
 class SignUp extends Component {
 

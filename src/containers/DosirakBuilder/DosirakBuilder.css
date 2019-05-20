@@ -22,12 +22,6 @@
     display: flex;
     justify-content: space-around;
 }
-/* 적용안됨 왜? */
-/* .OrderButton {
-    width: 50%;
-    background-color: #fff;
-} */
-
 .LoadingBackdrop {
     position: fixed;
     z-index: 500;
