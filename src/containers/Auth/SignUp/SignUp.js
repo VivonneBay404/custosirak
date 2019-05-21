@@ -171,17 +171,18 @@ class SignUp extends Component {
                 <div className={classes.SignUp}>
                     <div className={classes.BackButton}>
                         <Button btnType='Cancel' clicked={this.goBackButtonHandler}>뒤로가기</Button>
-                        <div className={classes.ErrorMessage}>
-                            {errorMessage}
-                        </div>
                     </div>
-
-                    {/* <div className={classes.Title}>회원가입</div> */}
-                    <form onSubmit={this.signUpHandler}>
+                    <div className={classes.ErrorMessage}>
+                        {errorMessage}
+                    </div>
+                    <form onSubmit={this.signUpHandler} className={classes.Form}>
                         {formArr}
-
                     </form>
-                    <Button btnType='Enter' disabled={!this.state.isAllValid} clicked={() => this.signUpHandler()}>회원가입</Button>
+                    
+                        <Button btnType='Enter' disabled={!this.state.isAllValid} clicked={() => this.signUpHandler()}>회원가입</Button>
+                  
+
+
 
                 </div>
             </>

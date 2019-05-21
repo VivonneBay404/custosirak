@@ -32,7 +32,7 @@ class Login extends Component {
 
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.onCleanupError()
     }
     render() {
@@ -60,8 +60,10 @@ class Login extends Component {
                     <form onSubmit={this.loginHandler} className={classes.Form}>
                         <Input inputType='input' placeholder='eamil' type='email' changed={event => this.inputChangedhandler(event, 'email')} />
                         <Input inputType='input' placeholder='password' type='password' changed={event => this.inputChangedhandler(event, 'password')} />
-                        <Button disabled={disability}>로그인</Button>
-                        <NavLink className={classes.Button} to='/signup'>회원가입</NavLink>
+                        <div className={classes.ButtonContainer}>
+                            <Button disabled={disability}>로그인</Button>
+                            <NavLink className={classes.Button} to='/signup'>회원가입</NavLink>
+                        </div>
                     </form>
 
                 </div>

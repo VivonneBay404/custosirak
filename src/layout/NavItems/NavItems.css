@@ -7,14 +7,13 @@
 
 .UserName {
     padding: 1rem;
-    margin-right: 2rem;
     font-size: 1rem;
 }
 
 .Loginout{
     background-color: #f0932b;
+    margin: 0;
     border-radius: 15px;
-    border-bottom: 0px;
 }
 
 @media (min-width: 1200px) {
@@ -24,5 +23,9 @@
         flex-wrap: nowrap;
         align-items: flex-start
     }
-  
+    .Loginout{
+        background-color: #f0932b;
+        border-radius: 15px;
+        margin-left: 2rem;
+    }
 }

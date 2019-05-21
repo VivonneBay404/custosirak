@@ -2,16 +2,15 @@
     display: grid;
     /* flex-direction: column; */
     grid-row-gap: 0.5rem;
-    height: 20rem;
     width: auto;
-    margin: 2rem 1rem;
+    margin: 1rem 1rem;
     /* max-width: 900px; */
-    min-height: 40%
+    height: 40vh
 }
 
 @media(min-width: 700px){
     .BuildControls {
-        font-size: 2rem
+        font-size: 1.2rem
     }
 }
 

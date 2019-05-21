@@ -5,7 +5,7 @@
     font-family: inherit;
 }
 
-.BuildControl button {
+.Button {
     background-color: #ffdba0;
     padding: 0;
     border: 0 solid black;
@@ -16,14 +16,13 @@
     outline: none;
     font-weight: 500;
     font-size: 1rem;
-   
+    font-family: inherit;
 }
 
 
-.BuildControl .Selected {
+.Selected {
     background-color: #ff8800;
     color: #fff;
-    font-family: inherit;
 }
 .Section {
     font-size: inherit;

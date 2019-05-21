@@ -1,6 +1,6 @@
 .SignUp {
-    font-size: 1.5rem;
-    padding-top: 5rem;
+    font-size: 1.2rem;
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -13,6 +13,10 @@
     margin: 1rem;
 }
 
+.Button {
+    margin-top: 1rem;
+}
+
 .Spinner {
     display: flex;
     justify-content: center;
@@ -23,29 +27,23 @@
     background: rgb(255, 255, 255)
 }
 
-
+.Form {
+    margin-bottom: 2rem;
+}
 .SignUp button:not(:disabled) {
     animation: none
 }
 
-.BackButton {
-    width: fit-content;
-    margin-bottom: 5rem;
-}
 
-.ErrorMessage {
-    position: absolute;
-    /* top: 13rem; */
-}
-
-
-@media(min-width: 1200px){
+@media(min-width: 500px){
     .SignUp{
-        max-width: 600px;
+        max-width: 400px;
         font-size: 2rem;
-    }
-    
-.BackButton {
-    display: none;
+    } 
+  
 }
+@media(min-width: 1200px){
+    .BackButton {
+        display: none;
+        }
 }

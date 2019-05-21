@@ -12,15 +12,13 @@ const BuildControl = (props) => {
         })
     }
     const btns = itemArr.map((e) => {
-        //if selected=true classes.selected else classes.button
-        let btnClass = null;
-        if (e.selected === true) {
-            btnClass = classes.Selected
-        } else {
-            btnClass = classes.BuildControl
+
+        let attachedClasses = [classes.Button]
+        if (e.selected) {
+            attachedClasses = [classes.Button, classes.Selected]
         }
         return (
-            <button key={e.item} className={btnClass} onClick={() => props.clicked(e.item, props.section)}>{e.item} | {e.price}</button>
+            <button key={e.item} className={attachedClasses.join(' ')} onClick={() => props.clicked(e.item, props.section)}>{e.item} | {e.price}</button>
         )
     })
     return (

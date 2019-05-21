@@ -1,13 +1,15 @@
 .Input {
   position: relative;
+  font-size: 1.2rem;
+  margin-top: 1rem;
 }
 
 .InputBox {
   padding: 1rem;
-  font-size: 1.3rem;
-  margin: 0.5rem;
   border: 1px solid grey;
-  width: 85%
+  width: 100%;
+  box-sizing: border-box;
+  font-size: inherit;
 }
 
 .InputBox:focus,
@@ -18,14 +20,8 @@
 .Invalid {
   color: #ff7979;
   position: absolute;
-  bottom: 4.8rem;
+  bottom: 4rem;
   font-size: 1.2rem;
-  left: 7rem;
+  left: 35%;
   border: 0;
-}
-
-@media(min-width: 1200px){
-  .Input {
-    margin-bottom: 2rem;
-  }
 }

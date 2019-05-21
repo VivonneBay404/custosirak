@@ -28,20 +28,26 @@
     z-index: 500;
 }
 
-@media(min-width: 1200px){
+@media(min-width: 700px){
     .DosirakBuilder {
-        max-width: 50%;
+        max-width: 70%;
     }
 
     .PriceAndOrderFlexContainer {
         display: flex;
         justify-content: space-around;
-        font-size: 2.5rem;
+        font-size: 1.2rem;
     }
     .TotalPrice {
         font-size: inherit
     }
     .PriceAndOrderFlexContainer button {
         font-size: inherit
+    }
+}
+
+@media(min-width: 1200px){
+    .DosirakBuilder {
+        max-width: 50%;
     }
 }

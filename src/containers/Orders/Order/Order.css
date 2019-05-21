@@ -14,6 +14,9 @@
 .Order button:not(:disabled) {
     animation: none
 }
+.Order button {
+    margin-top: 1rem;
+}
 
 .Item {
     padding: 0.5rem;

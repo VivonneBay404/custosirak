@@ -4,7 +4,6 @@
     width: 80%;
     margin: 0 auto;
     margin-top: 2rem;
-    height: 15rem;
     text-align: center;
     font-weight: bold;
     font-size: 1.2rem;
@@ -20,7 +19,7 @@
     grid-template-rows: repeat(5, 1fr);
     grid-template-columns: repeat(10, 1fr);
     min-width: 50%;
-    min-height: 30%;
+    height: 30vh;
     max-width: 500px;
 }
 .Introduction {
@@ -69,9 +68,9 @@
     margin: 0.5rem;
 }
 
-@media(min-width: 1200px){
+@media(min-width: 500px){
     .Dosirak {
-        max-width: 500px;
+        max-width: 50%;
         max-height: 30%;
         /* min-height: 30% */
     }

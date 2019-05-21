@@ -9,13 +9,9 @@
 
 .NavItem a {
     text-decoration: none;
-    color: black;
+    color: rgb(0, 0, 0);
 }
-.NavItem a:hover,
-.NavItem a:active,
-.NavItem a.active{
-    color: #f0932b
-}
+
 /* .active {
     color: #f0932b
 } */
@@ -27,17 +23,16 @@
     }
     .NavItem a:link,
     .NavItem a:visited {
-        border-bottom: 2px solid transparent;
-        transition: border-bottom 0.2s;
-        padding-bottom: 3px;
+        color: rgb(255, 255, 255);
+        transition: color 0.2s;
+
     }
 
     .NavItem a:hover,
     .NavItem a:active,
     .NavItem a.active{
-        color: black;
-        border-bottom: 2px solid black;
-        padding-bottom: 3px;
+        color: rgb(0, 0, 0);
+
       
     }
     
