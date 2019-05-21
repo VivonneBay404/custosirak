@@ -11,6 +11,7 @@ import javaScript from '../../assets/images/techIcons/java-script.png'
 import npm from '../../assets/images/techIcons/npm.png'
 import firebase from '../../assets/images/techIcons/firebase.png'
 import jest from '../../assets/images/techIcons/jest.png'
+import github from '../../assets/images/techIcons/github.svg'
 
 const webAppInfos = () => {
     return (
@@ -53,6 +54,11 @@ const webAppInfos = () => {
                     <img src={firebase} alt='firebase' />
                     <img src={jest} alt='jest' />
                 </div>
+                <div className={classes.Github}>
+                    <a href="https://github.com/VivonneBay404/custosirak"><img src={github} alt='github' link /></a>
+                    <p>check this app's code!</p>
+                </div>
+
             </WebAppInfo>
         </div>
     )
