@@ -6,19 +6,13 @@
   width: 100%;
   margin-top: 8rem;
   padding: 1rem;
+
 }
 
 .WebAppInfos li{
   margin: 0.5rem;
 }
 
-.MyPhoto {
-    width: 70%;
-    border-radius: 50%;
-    display: block;
-    margin: 1rem;
-    max-width: 20rem;
-}
 
 .Dosirak {
     max-width: 30rem;
@@ -38,15 +32,23 @@
 }
 
 .Github {
-  
   padding: 3rem;
+  padding-bottom: 0.5rem;
   width: 10rem;
   margin: auto;
-  font-size: 1.2rem;
 }
-/* 
+
+.GithubParag {
+  margin: auto;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
 @media(min-width: 1200px){
- 
-} */
+  .WebAppInfos {
+    flex-basis: 50%;
+  }
+  
+}
 
 

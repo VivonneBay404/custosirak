@@ -26,6 +26,7 @@ const navItems = (props) => {
                 ? <NavItem link='/orders' closed={sideDrawerClosed}>내 주문</NavItem>
                 : null}
             <NavItem link='/aboutThisWebApp' closed={sideDrawerClosed} >About This Web App</NavItem>
+            <NavItem link='/contact' closed={sideDrawerClosed} >Contact</NavItem>
 
 
         </div>

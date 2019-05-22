@@ -1,7 +1,6 @@
 import React from 'react'
 import classes from './WebAppInfos.css'
 import WebAppInfo from './WebAppInfo/WebAppInfo'
-import myPhoto from '../../assets/images/KakaoTalk_20190519_160202335.jpg'
 import dosirakPicture from '../../assets/images/dosirak-picture.jpg'
 import html5 from '../../assets/images/techIcons/html.png'
 import css3 from '../../assets/images/techIcons/css3.png'
@@ -16,19 +15,10 @@ import github from '../../assets/images/techIcons/github.svg'
 const webAppInfos = () => {
     return (
         <div className={classes.WebAppInfos}>
-            <WebAppInfo title='About The Developer'>
-                <img className={classes.MyPhoto} src={myPhoto} alt='지홍' />
-                안녕하세요.
-                <br /><br />전 박지홍이라고 합니다.
-                <br /><br /> 서울 서대문구에 살고있고 react Web front-end 개발자 일자리를 구하고 있습니다.
-                <br /><br /> 아직 경력은 없지만 열린마음으로 배우고 일하고 싶습니다.
-                <br /><br /> 이 포트폴리오를 보고 채용할 관심이있으시다면 asthma404@gmail.com 으로 연락주세요!
-                <br /><br /> 감사합니다!
-            </WebAppInfo>
             <WebAppInfo title='기획의도'>
                 <img className={classes.Dosirak} src={dosirakPicture} alt='도시락' />
-                편의점 도시락을 먹을때마다 싫어하는 반찬을 남기는 경험은 다들 있으실겁니다.
-                <br /><br />포트폴리오를 만들때 이런 낭비를 막는 앱을 만들어보고 싶었습니다.
+                편의점 도시락을 먹을때마다 싫어하는 반찬을 남겼던 경험은 다들 있으실겁니다.
+                <br /><br />포트폴리오를 만들때 이런 낭비를 막고 환경을 지키는 앱을 만들어보고 싶었습니다.
                 <br /><br />그래서 customizable + dosirak = custosirak을 만들게되었습니다.
                 <br /><br />udemy의 코스 udemy에 있는 Maximilian Schwarzmüller의
                 <a href='https://www.udemy.com/react-the-complete-guide-incl-redux/'> react-redux 강좌</a>
@@ -56,8 +46,8 @@ const webAppInfos = () => {
                 </div>
                 <div className={classes.Github}>
                     <a href="https://github.com/VivonneBay404/custosirak"><img src={github} alt='github' link /></a>
-                    <p>check this app's code!</p>
                 </div>
+                <p className={classes.GithubParag}>Check out the code!</p>
 
             </WebAppInfo>
         </div>

@@ -17,6 +17,7 @@ const Order = React.lazy(() => import('../src/containers/Orders/Orders'));
 const Login = React.lazy(() => import('../src/containers/Auth/Login/Login'))
 const SignUp = React.lazy(() => import('../src/containers/Auth/SignUp/SignUp'))
 const WebAppInfos = React.lazy(() => import('../src/components/WebAppInfos/WebAppInfos'))
+const Contact = React.lazy(() => import('../src/components/Contact/Contact'))
 
 
 class App extends Component {
@@ -33,6 +34,7 @@ class App extends Component {
         <Route path='/login' render={() => <Suspense fallback={<Spinner />}><Login /></Suspense>} />
         <Route path='/signup' render={() => <Suspense fallback={<Spinner />}><SignUp /></Suspense>} />
         <Route path='/aboutThisWebApp' render={() => <Suspense fallback={<Spinner />}><WebAppInfos /></Suspense>} />
+        <Route path='/contact' render={() => <Suspense fallback={<Spinner />}><Contact /></Suspense>} />
         <Route path='/' component={DosirakBuilder} />
       </Switch>
 
@@ -46,6 +48,7 @@ class App extends Component {
           <Route path='/logout' component={Logout} />
           {/* 만약 없는 url을 치면 redirect to dosirakbuilder */}
           <Route path='/aboutThisWebApp' render={() => <Suspense fallback={<Spinner />}><WebAppInfos /></Suspense>} />
+          <Route path='/contact' render={() => <Suspense fallback={<Spinner />}><Contact /></Suspense>} />
           <Route path='/' component={DosirakBuilder} />
         </Switch>
     }
